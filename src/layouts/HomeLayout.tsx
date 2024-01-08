@@ -8,7 +8,7 @@ export default function HomeLayout() {
   return (
     <>
      
-      <div className="bg-home bg-cover bg-center h-screen">
+      <div className="bg-home bg-cover bg-center h-full min-h-screen">
         <Navbar />
         <Outlet />
       </div>

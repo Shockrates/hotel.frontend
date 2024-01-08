@@ -37,7 +37,7 @@ function Login() {
     }
 
     return (
-        <div className='flex flex-row h-1/2 place-items-center'>
+        <div className='flex flex-row pt-16'>
             <div className='mx-auto sm:w-[416px] transform duration-300 ease-in animate-slideIn'>
 
             {error && (
