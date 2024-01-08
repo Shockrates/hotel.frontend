@@ -7,7 +7,7 @@ import { NavLink } from 'react-router-dom'
 import { useAuth } from "../contexts/AuthContext";
 import { handleLogout } from "../lib/apiCalls";
 
-function Navbar() {
+function MainNavbar() {
 
     const { user } = useAuth();
 
@@ -36,8 +36,8 @@ function Navbar() {
 
     return (
         <>
-            <nav className="bg-black border-gray-200 px-2 sm:px-4 py-3 text-white dark:bg-gray-900">
-                <div className="container flex flex-wrap justify-between items-center mx-auto">
+            <nav className="bg-slate-200 border-gray-200 px-2 sm:px-4 py-3 text-black dark:bg-gray-900 shadow-xl">
+                <div className="container flex justify-between items-center mx-auto ">
                     {/* Logo */}
                     <h1 className='p-4  m-1 text-2xl font-bold'>HOTELS.</h1>
                     {/* Desktop Navigation */}
@@ -105,7 +105,7 @@ function Navbar() {
                 <ul
                     className={
                         nav
-                            ? 'fixed sm:hidden left-0 top-0 w-[60%] h-full border-r border-r-gray-900 bg-[#000300] ease-in-out duration-500 z-10'
+                            ? 'fixed sm:hidden left-0 top-0 w-[60%] h-full border-r border-r-gray-900 bg-slate-200 ease-in-out duration-500 z-10'
                             : 'ease-in-out w-[60%] duration-500 fixed top-0 bottom-0 left-[-100%] '
                     }
                 >
@@ -129,4 +129,4 @@ function Navbar() {
     )
 }
 
-export default Navbar
+export default MainNavbar

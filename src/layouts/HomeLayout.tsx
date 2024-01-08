@@ -1,5 +1,5 @@
 import {Outlet } from 'react-router-dom';
-import Navbar from '../components/Navbar';
+import HomeNavbar from '../components/HomeNavbar';
 
 
 
@@ -9,8 +9,11 @@ export default function HomeLayout() {
     <>
      
       <div className="bg-home bg-cover bg-center h-full min-h-screen">
-        <Navbar />
-        <Outlet />
+        <HomeNavbar />
+        <div className='flex flex-row pt-20'>
+          <Outlet />
+        </div>
+        
       </div>
  
     </>

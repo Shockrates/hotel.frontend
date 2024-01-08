@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {useGetAllRooms} from "../lib/apiCalls"
 import { Room } from "../types";
 
@@ -46,14 +47,16 @@ const SimpleSearchForm = () => {
                 </fieldset>
 
                 <div className="my-2 mx-0 text-center">
-
-                    <input
+                <Link to={"/rooms"}>
+                <input
                         className="p-4 text-sm font-sans rounded-lg bg-[#fa4903] text-white cursor-pointer hover:bg-[#b63400] px-6 transition duration-300"
                         name="search"
                         id="searchButton"
-                        type="submit"
+                        type="button"
                         value="Search"
                     />
+                </Link>
+                    
 
                 </div>
 

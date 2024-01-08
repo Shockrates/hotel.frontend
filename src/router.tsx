@@ -4,6 +4,8 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import AuthLayout from "./layouts/AuthLayout";
+import MainLayout from "./layouts/MainLayout";
+import Rooms from "./pages/Rooms";
 
 const router = createBrowserRouter([
     {
@@ -30,24 +32,24 @@ const router = createBrowserRouter([
            
         ]
     },
-    // {
-    //     path: '/',
-    //     element: <MainLayout />,
-    //     children:[ 
-    //         {
-    //             path: '/search',
-    //             element: <Search />
-    //         },
-    //         {
-    //             path: '/room/:id',
-    //             element: <Room />
-    //         },   
-	// 		{
-	// 			path: '/profile',
-	// 			element: <Profile />,
-	// 		},
-    //     ]
-    // }
+    {
+        path: '/',
+        element: <MainLayout />,
+        children:[ 
+            {
+                path: '/rooms',
+                element: <Rooms />
+            },
+            // {
+            //     path: '/room/:id',
+            //     element: <Room />
+            // },   
+			// {
+			// 	path: '/profile',
+			// 	element: <Profile />,
+			// },
+        ]
+    }
 ])
 
 export default router;

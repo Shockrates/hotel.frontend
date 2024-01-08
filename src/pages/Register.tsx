@@ -55,7 +55,7 @@ function Register() {
   };
 
   return (
-    <div className='flex flex-row pt-16'>
+   
         <div className='mx-auto sm:w-[416px] transform duration-300 ease-in animate-slideIn'>
         <form 
               className="bg-[#fff] space-y-6 p-6 rounded-xl w-full shadow-lg"
@@ -150,7 +150,7 @@ function Register() {
 
             </form>
         </div>
-    </div>
+  
   )
 }
 
