@@ -1,17 +1,28 @@
-import { Link } from "react-router-dom";
 import {useGetAllRooms} from "../lib/apiCalls"
 import { Room } from "../types";
+import { useRef, useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { useNavigate } from "react-router-dom";
 
-// const SimpleSearchForm = (props: { types: string[],cities: string[] }) => {
 const SimpleSearchForm = () => {
 
     const { rooms } = useGetAllRooms();
+    const navigate = useNavigate();
     const {types, cities} = getTypesAndCities(rooms)
+
+    const [checkInDate, setCheckInDate] = useState<Date>();
+    console.log(checkInDate);
     
+    const handleSubmit = (e: any) =>{
+        e.preventDefault();
+        navigate('/rooms');
+    }
 
     return (
         <>
-            <form className='bg-[#fff] space-y-4 md:space-y-6 p-6 rounded-xl w-full shadow-lg '>
+         
+            <form className='bg-[#fff] space-y-4 md:space-y-6 p-6 rounded-xl w-full shadow-lg ' onSubmit={handleSubmit}>
                 <div className='flex items-center justify-between flex-col sm:flex-row'>
                     <div className="sm:w-1/2 w-full my-0 mx-1">
 
@@ -39,23 +50,32 @@ const SimpleSearchForm = () => {
                 <fieldset className='flex items-center justify-between flex-col sm:flex-row'>
                     <div className="sm:w-1/2 w-full my-0 mx-1">
 
-                        <input className='w-full' type="text" id="check_in_date" name="check_in_date" placeholder="Check-In Date" required />
+                        <input className='w-full' type="text" id="check_in_date" name="check_in_date" value={checkInDate?.toLocaleString('en-CA')} required />
+                        <DatePicker 
+                            className="w-full text-black"
+                           
+                            placeholderText="Choose date range" 
+                            selected={checkInDate} 
+                            onChange={(date:Date) => setCheckInDate(date)} 
+                            //dateFormat={"dd/MM/yyyy"}
+                        /> 
                     </div>
                     <div className="sm:w-1/2 w-full my-0 mx-1">
-                        <input className='w-full' type="text" id="check_out_date" name="check_out_date" placeholder="Check-Out Date" required />
+                        <input className='w-full' type="date" id="check_out_date" name="check_out_date" placeholder="Check-Out Date" required />
+                       
                     </div>
+                    
                 </fieldset>
 
                 <div className="my-2 mx-0 text-center">
-                <Link to={"/rooms"}>
-                <input
+                {/* <Link to={"/rooms"}> */}
+                <button
                         className="p-4 text-sm font-sans rounded-lg bg-[#fa4903] text-white cursor-pointer hover:bg-[#b63400] px-6 transition duration-300"
-                        name="search"
-                        id="searchButton"
-                        type="button"
-                        value="Search"
-                    />
-                </Link>
+                        type="submit"
+                    >
+                    Search
+                </button>    
+                {/* </Link> */}
                     
 
                 </div>

@@ -18,19 +18,17 @@ function Login() {
                 password: password.value,
             };
         await csrfToken();
-        try {
-             
-            const resp = await apiClient.post('/api/login', body);
-            
+        try {           
+            const resp = await apiClient.post('/api/login', body);        
             if (resp.status === 200) {
                 setUserToLocalStorage(resp.data.data.user);
-                console.log(resp);
-                
             }
           } catch (error) {
             if (error instanceof AxiosError && error?.response?.status === 401) {  
                 console.log(error.response.data.message);
                 setError(error.response.data.message);
+            }else{
+                console.log(error);   
             }
           }
 
