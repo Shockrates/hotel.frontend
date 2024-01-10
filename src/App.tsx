@@ -6,7 +6,7 @@ import apiClient from './lib/apiClient'
 
 
 function App() {
-  useLogToken();
+  //useLogToken();
   
   return (
     <div className="App">

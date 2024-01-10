@@ -1,22 +1,45 @@
 import {useGetAllRooms} from "../lib/apiCalls"
-import { Room } from "../types";
-import { useRef, useState } from "react";
+import { DateInfo, Room } from "../types";
+import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router-dom";
+import apiClient from "../lib/apiClient";
 
 const SimpleSearchForm = () => {
+
 
     const { rooms } = useGetAllRooms();
     const navigate = useNavigate();
     const {types, cities} = getTypesAndCities(rooms)
 
-    const [checkInDate, setCheckInDate] = useState<Date>();
-    console.log(checkInDate);
+    const [formData, setFormData] = useState({
+        city: "",
+        roomType: "",
+        check_in_date: "",
+        check_out_date: "",
+      });
+      
+    const handleInputChange = (e:any, dateInfo?:DateInfo) => {
+        const { name, value } = (typeof dateInfo !== 'undefined') ? dateInfo : e.target;
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            [name]: value,
+        }));   
+    };
+
     
-    const handleSubmit = (e: any) =>{
+    const handleSubmit = async (e: any) =>{
         e.preventDefault();
-        navigate('/rooms');
+        //console.log(formData);
+        try {
+            const resp =  await apiClient.post('/api/roomsearch', formData);
+            if (resp?.status === 200) {
+              console.log(resp.data.data);
+            }
+        } catch (error) {
+            console.log(error);    
+        }
     }
 
     return (
@@ -26,7 +49,7 @@ const SimpleSearchForm = () => {
                 <div className='flex items-center justify-between flex-col sm:flex-row'>
                     <div className="sm:w-1/2 w-full my-0 mx-1">
 
-                        <select className='w-full' id="city" name="city" required defaultValue={""}>
+                        <select className='w-full' id="city" name="city" required defaultValue={""} onChange={handleInputChange}>
                             <option value="" disabled hidden>City</option>
                             {(cities.length == 0)
                                 ?<option value="" >{"No cities available"}</option>
@@ -49,20 +72,25 @@ const SimpleSearchForm = () => {
 
                 <fieldset className='flex items-center justify-between flex-col sm:flex-row'>
                     <div className="sm:w-1/2 w-full my-0 mx-1">
-
-                        <input className='w-full' type="text" id="check_in_date" name="check_in_date" value={checkInDate?.toLocaleString('en-CA')} required />
                         <DatePicker 
                             className="w-full text-black"
-                           
-                            placeholderText="Choose date range" 
-                            selected={checkInDate} 
-                            onChange={(date:Date) => setCheckInDate(date)} 
-                            //dateFormat={"dd/MM/yyyy"}
+                            
+                            placeholderText="Chose Check-In Date"
+                            selected={formData.check_in_date ? new Date(formData.check_in_date) : null}
+                            onChange={(date:Date , e:any) => handleInputChange(e, {name:"check_in_date", value: date.toISOString()})}
+                            dateFormat={"dd/MM/yyyy"}
                         /> 
                     </div>
                     <div className="sm:w-1/2 w-full my-0 mx-1">
-                        <input className='w-full' type="date" id="check_out_date" name="check_out_date" placeholder="Check-Out Date" required />
-                       
+                    <DatePicker 
+                            className="w-full text-black"
+                            selected={formData.check_out_date ? new Date(formData.check_out_date) : null}
+                            placeholderText="Chose Check-Out Date"
+                            onChange={(date:Date , e:any) => handleInputChange(e, {name:"check_out_date", value: date.toISOString()})}
+                            dateFormat={"dd/MM/yyyy"}
+                        /> 
+                  
+
                     </div>
                     
                 </fieldset>

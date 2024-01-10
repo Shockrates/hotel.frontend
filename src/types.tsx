@@ -62,3 +62,8 @@ export type Booking = {
     }
 }
 
+export type DateInfo = {
+    name: string
+    value: string
+}
+
