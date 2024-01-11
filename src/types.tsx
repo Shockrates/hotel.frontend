@@ -67,3 +67,10 @@ export type DateInfo = {
     value: string
 }
 
+export type inputProps = {
+    label: string,
+    type: string,
+    id: string,
+    placeholder: string
+}
+
