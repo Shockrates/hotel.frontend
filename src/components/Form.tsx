@@ -3,6 +3,7 @@ import { Controller, FormProvider, useForm } from 'react-hook-form'
 import { GrMail } from 'react-icons/gr'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { DatePickerInput } from './DatePickerInput';
 
 export const Form = () => {
 
@@ -10,7 +11,7 @@ export const Form = () => {
     
 
     const onSubmit = methods.handleSubmit(data => {
-        console.log(data.ReactDatepicker.toISOString())
+        console.log(data)
       })
 
     return (
@@ -36,9 +37,15 @@ export const Form = () => {
                         id="password"
                         placeholder="type your password..."
                     />
-                    <Controller
+                    <DatePickerInput
+                    control={methods.control}
+                        label="check_in_date"
+                        id="check_in_date"
+                        placeholder="Choose Check-In Date"
+                    />
+                    {/* <Controller
                         control={methods.control}
-                        name="ReactDatepicker"
+                        name="check_in_date"
                         rules={{ required: true }}
                         render={({ field: { onChange, onBlur, value, ref } }) => (
                             <DatePicker 
@@ -50,7 +57,7 @@ export const Form = () => {
                             dateFormat={"dd/MM/yyyy"}
                         /> 
                         )}
-                    />
+                    /> */}
                         </div>
                     </div>
                 <div className="mt-5">

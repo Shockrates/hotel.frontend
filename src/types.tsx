@@ -1,3 +1,7 @@
+import {
+    Control
+} from 'react-hook-form'
+
 export type User = {
     id: string,
     name: string,
@@ -72,5 +76,12 @@ export type inputProps = {
     type: string,
     id: string,
     placeholder: string
+}
+
+export type datePickerProps = {
+    label: string,
+    id: string,
+    placeholder: string,
+    control: Control
 }
 

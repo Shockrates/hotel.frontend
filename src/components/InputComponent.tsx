@@ -4,6 +4,7 @@ import { inputProps } from "../types"
 
 export const InputComponent = ({label, type, id, placeholder}: inputProps) => {
 
+  
     const { register } = useFormContext()
 
     return (
@@ -18,6 +19,7 @@ export const InputComponent = ({label, type, id, placeholder}: inputProps) => {
             type={type}
             className="w-full p-5 font-medium border rounded-md border-slate-300 placeholder:opacity-60"
             placeholder={placeholder}
+            autoComplete='off'
             {...register(label, {
                 required: {
                   value: true,
