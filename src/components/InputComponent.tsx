@@ -5,7 +5,7 @@ import { inputProps } from "../types"
 export const InputComponent = ({label, type, id, placeholder}: inputProps) => {
 
   
-    const { register } = useFormContext()
+    const { register, formState: { errors } } = useFormContext()
 
     return (
         <div className="flex flex-col w-full gap-2">
@@ -27,7 +27,7 @@ export const InputComponent = ({label, type, id, placeholder}: inputProps) => {
                 },
               })}
           />
-          
+           {errors[label] && <p style={{ color: 'red' }}>{(errors[label] as any).message}</p>}
         </div>
     )
 }

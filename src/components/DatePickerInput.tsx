@@ -6,7 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 export const DatePickerInput = ({control, label, id, placeholder}: datePickerProps) => {
 
-    const { register } = useFormContext()
+    const { register, formState: { errors } } = useFormContext()
     //const { handleSubmit, control } = useForm();
 
     return (
@@ -21,6 +21,12 @@ export const DatePickerInput = ({control, label, id, placeholder}: datePickerPro
                         control={control}
                         name = {label}
                         rules={{ required: true }}
+                        // {...register(label, {
+                        //     required: {
+                        //       value: true,
+                        //       message: 'required',
+                        //     },
+                        //   })}
                       
                         render={({ field: { onChange, onBlur, value,  ref } }) => (
                             <DatePicker 
@@ -35,6 +41,7 @@ export const DatePickerInput = ({control, label, id, placeholder}: datePickerPro
                             /> 
                         )}
                     />
+                    {errors[label] && <p style={{ color: 'red' }}>{(errors[label] as any).message}</p>}
           
         </div>
     )
