@@ -5,6 +5,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router-dom";
 import apiClient from "../lib/apiClient";
+import { addDays } from "flowbite-react/lib/esm/components/Datepicker/helpers";
 
 const SimpleSearchForm = () => {
 
@@ -79,6 +80,7 @@ const SimpleSearchForm = () => {
                             selected={formData.check_in_date ? new Date(formData.check_in_date) : null}
                             onChange={(date:Date , e:any) => handleInputChange(e, {name:"check_in_date", value: date.toISOString()})}
                             dateFormat={"dd/MM/yyyy"}
+                            minDate={new Date()}
                         /> 
                     </div>
                     <div className="sm:w-1/2 w-full my-0 mx-1">
@@ -88,6 +90,7 @@ const SimpleSearchForm = () => {
                             placeholderText="Chose Check-Out Date"
                             onChange={(date:Date , e:any) => handleInputChange(e, {name:"check_out_date", value: date.toISOString()})}
                             dateFormat={"dd/MM/yyyy"}
+                            minDate={addDays(new Date(formData.check_in_date), 1)}
                         /> 
                   
 

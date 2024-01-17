@@ -4,9 +4,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 
-export const DatePickerInput = ({control, label, id, placeholder}: datePickerProps) => {
+export const DatePickerInput = ({label, id, placeholder, minDate}: datePickerProps) => {
 
-    const { register, formState: { errors } } = useFormContext()
+    const {  register, control, formState:{errors}  } = useFormContext()
     //const { handleSubmit, control } = useForm();
 
     return (
@@ -20,14 +20,7 @@ export const DatePickerInput = ({control, label, id, placeholder}: datePickerPro
               <Controller
                         control={control}
                         name = {label}
-                        rules={{ required: true }}
-                        // {...register(label, {
-                        //     required: {
-                        //       value: true,
-                        //       message: 'required',
-                        //     },
-                        //   })}
-                      
+                        rules={{ required: 'Date is Required' }}
                         render={({ field: { onChange, onBlur, value,  ref } }) => (
                             <DatePicker 
                                 id={id}
@@ -37,6 +30,8 @@ export const DatePickerInput = ({control, label, id, placeholder}: datePickerPro
                                 onChange={onChange}
                                 onBlur={onBlur}
                                 dateFormat={"dd/MM/yyyy"}
+                                autoComplete="off"
+                                minDate={minDate}
                                 
                             /> 
                         )}

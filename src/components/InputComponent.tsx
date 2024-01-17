@@ -2,7 +2,7 @@ import { useFormContext } from "react-hook-form"
 import { inputProps } from "../types"
 
 
-export const InputComponent = ({label, type, id, placeholder}: inputProps) => {
+export const InputComponent = ({label, type, id, placeholder, rules}: inputProps) => {
 
   
     const { register, formState: { errors } } = useFormContext()
@@ -17,17 +17,19 @@ export const InputComponent = ({label, type, id, placeholder}: inputProps) => {
           <input
             id={id}
             type={type}
-            className="w-full p-5 font-medium border rounded-md border-slate-300 placeholder:opacity-60"
+            className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder={placeholder}
             autoComplete='off'
-            {...register(label, {
-                required: {
-                  value: true,
-                  message: 'required',
-                },
-              })}
+            {...register(label, rules
+                // required: {
+                //   value: true,
+                //   message: 'required',
+                // },
+                
+              
+              )}
           />
-           {errors[label] && <p style={{ color: 'red' }}>{(errors[label] as any).message}</p>}
+           {errors[label] && <p className="text-rose-500">{(errors[label] as any).message}</p>}
         </div>
     )
 }

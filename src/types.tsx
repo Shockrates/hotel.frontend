@@ -1,6 +1,3 @@
-import {
-    Control
-} from 'react-hook-form'
 
 export type User = {
     id: string,
@@ -71,17 +68,28 @@ export type DateInfo = {
     value: string
 }
 
+
+
+export type SimpleFormValues = {
+    name: string
+    password: string
+    check_in_date: Date
+    check_out_date: Date
+}
+
+
 export type inputProps = {
     label: string,
     type: string,
     id: string,
     placeholder: string
+    rules: object
 }
 
 export type datePickerProps = {
     label: string,
     id: string,
     placeholder: string,
-    control: Control
+    minDate: Date
 }
 
