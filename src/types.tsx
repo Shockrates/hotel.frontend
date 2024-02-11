@@ -72,24 +72,39 @@ export type DateInfo = {
 
 export type SimpleFormValues = {
     name: string
-    password: string
+    date: string
     check_in_date: Date
     check_out_date: Date
 }
 
 
 export type inputProps = {
-    label: string,
+    name: string,
     type: string,
     id: string,
     placeholder: string
-    rules: object
+    rules?: object
 }
 
 export type datePickerProps = {
-    label: string,
+    name: string,
     id: string,
     placeholder: string,
-    minDate: Date
+    rules?: object
+    minDate?: Date,
+    maxDate?: Date
+}
+
+export type SelectProps = {
+    name: string,
+    id: string,
+    placeholder: string,
+    values:string[],
+    rules?: object
+}
+
+export type option = {
+    label: string,
+    value: string
 }
 

@@ -62,34 +62,29 @@ function LoginForm() {
                 >
                     <div className='flex items-center'>
                         <InputComponent
-                            label="email"
+                            name="email"
                             type="email"
                             id="email"
                             placeholder="name@company.com"
                             rules = {{
-                                required: {
-                                    value: true,
-                                    message: 'required',
-                                  },
-                                  pattern: {
+                                required: 'Email is Required' ,
+                               
+                                pattern: {
                                     value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                                     message: 'Invalid email format',
-                                  },
+                                },
                             }}
                         />
                     </div>
                     <div className='flex items-center'>
                         <InputComponent
-                            label="password"
+                            name="password"
                             type="password"
                             id="password"
                             placeholder="•••••••"
-                            rules = {{
-                                required: {
-                                    value: true,
-                                    message: 'required',
-                                  }
-                            }}
+                            rules = {
+                                { required: 'Password is Required' }
+                            }
                         />
                     </div>
                     <button

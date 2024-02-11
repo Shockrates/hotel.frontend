@@ -4,23 +4,18 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 
-export const DatePickerInput = ({label, id, placeholder, minDate}: datePickerProps) => {
+export const DatePickerInput = ({name, id, placeholder,rules, minDate, maxDate}: datePickerProps) => {
 
     const {  register, control, formState:{errors}  } = useFormContext()
     //const { handleSubmit, control } = useForm();
 
     return (
         <div className="flex flex-col w-full gap-2">
-          <div className="flex justify-between">
-            <label htmlFor={id} className="font-semibold capitalize">
-              {label}
-            </label>
-          </div>
       
               <Controller
                         control={control}
-                        name = {label}
-                        rules={{ required: 'Date is Required' }}
+                        name = {name}
+                        rules={rules}
                         render={({ field: { onChange, onBlur, value,  ref } }) => (
                             <DatePicker 
                                 id={id}
@@ -32,11 +27,12 @@ export const DatePickerInput = ({label, id, placeholder, minDate}: datePickerPro
                                 dateFormat={"dd/MM/yyyy"}
                                 autoComplete="off"
                                 minDate={minDate}
+                                maxDate={maxDate}
                                 
                             /> 
                         )}
                     />
-                    {errors[label] && <p style={{ color: 'red' }}>{(errors[label] as any).message}</p>}
+                    {errors[name] && <p style={{ color: 'red' }}>{(errors[name] as any).message}</p>}
           
         </div>
     )

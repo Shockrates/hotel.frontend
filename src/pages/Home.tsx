@@ -8,7 +8,6 @@ function Home() {
   return (
 
     <div className='mx-auto transform animate-slideIn'>
-      <SimpleSearchForm />
       <div className="mt-10"></div>
       <Form />
     </div>   
