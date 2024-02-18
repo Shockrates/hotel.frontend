@@ -1,15 +1,34 @@
 import { useEffect, useState } from "react";
 import apiClient from "./apiClient";
 import { Room } from "../types";
+import { getTypesAndCities } from "./utils";
 
-export const useGetAllRooms = () =>{
+export const getAllRooms = async () => {
+
+  let rooms:Room[] = []
+
+  try {
+    await apiClient.get('/api/rooms')
+    .then(response => {
+        rooms = response.data.data ;   
+    })
+    .catch(error => console.error(error));
+  } catch (error) {
+    console.log(error);
+  } 
+
+  return rooms
+}
+
+
+export const useSearchResultRooms = (formData:object) =>{
 
   const [rooms, setRooms] = useState<Room[]>([]);
 
   useEffect(() => {
-    const getAllRooms = async () => {
+    const getAllRooms = async (query:object) => {
       try {
-        await apiClient.get('/api/rooms')
+        await apiClient.post('/api/roomsearch', query)
         .then(response => {
             setRooms(response.data.data) ;   
         })
@@ -18,7 +37,7 @@ export const useGetAllRooms = () =>{
         console.log(error);
       } 
     }
-    getAllRooms();
+    getAllRooms(formData);
   }, [])
 
   return {

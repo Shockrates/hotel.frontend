@@ -1,19 +1,15 @@
-import { InputComponent } from './InputComponent'
 import { FormProvider, useForm } from 'react-hook-form'
-import { GrMail } from 'react-icons/gr'
 import "react-datepicker/dist/react-datepicker.css";
 import { DatePickerInput } from './DatePickerInput';
 import { SimpleFormValues } from '../types';
 import { addDays } from 'flowbite-react/lib/esm/components/Datepicker/helpers';
 import { SelectComponent } from './SelectComponent';
-import { useGetAllRooms } from '../lib/apiCalls';
-import { getTypesAndCities } from '../lib/utils';
-import apiClient from '../lib/apiClient';
+import { useNavigate} from 'react-router-dom';
 
-export const Form = () => {
+export const Form = ({cities, roomTypes}: any) => {
 
-    const { rooms } = useGetAllRooms();
-    const {roomTypes, cities} = getTypesAndCities(rooms)
+   
+    const navigate = useNavigate();
 
     const methods = useForm<SimpleFormValues>()
 
@@ -21,15 +17,17 @@ export const Form = () => {
     const checkOutValue = methods.watch('check_out_date');
 
     const onSubmit = methods.handleSubmit(async (formData) => {
-        //console.log(data)
-        try {
-            const resp =  await apiClient.post('/api/roomsearch', formData);
-            if (resp?.status === 200) {
-              console.log(resp.data.data);
-            }
-        } catch (error) {
-            console.log(error);    
-        }
+
+        const quesryString = Object.entries(formData).map(([key, value]) => {
+            if ( value) {
+                return `${key}=${(value instanceof Date)? value.toLocaleDateString() : value.toString()}` 
+            } 
+        })
+        .join('&');
+        //console.log(quesryString);
+
+        navigate(`/rooms?${quesryString}`);
+     
     })
 
 
@@ -65,7 +63,7 @@ export const Form = () => {
                                 }
                             />
                             <SelectComponent
-                                 name="roomType"
+                                 name="type_id"
                                  id="roomType"
                                  placeholder="Room Type"
                                  values={roomTypes}
@@ -77,7 +75,7 @@ export const Form = () => {
                                 rules = {
                                     { required: 'Please enter check in date' }
                                 }
-                                minDate={new Date()}
+                                minDate={addDays(new Date(), +1)}
                                 maxDate={addDays(new Date(checkOutValue), -1)}
                             />
                             

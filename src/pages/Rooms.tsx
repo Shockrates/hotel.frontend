@@ -1,8 +1,18 @@
-import { useGetAllRooms } from "../lib/apiCalls";
+import { useSearchParams } from "react-router-dom";
+import { useSearchResultRooms } from "../lib/apiCalls";
+
 
 function Rooms() {
 
-  const { rooms } = useGetAllRooms();
+  const [params, setParams] = useSearchParams();
+
+  const queryData: Record<string, any> = {};
+
+  params.forEach((value, key) => {
+    queryData[key] = value;
+  });
+
+  const { rooms } = useSearchResultRooms(queryData);
   const roomList = rooms.map((room) =>
         <li key={room.id}> {room.attributes.name}</li>
     );

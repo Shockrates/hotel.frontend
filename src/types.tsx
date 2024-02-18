@@ -71,8 +71,8 @@ export type DateInfo = {
 
 
 export type SimpleFormValues = {
-    name: string
-    date: string
+    city: string
+    roomType: string
     check_in_date: Date
     check_out_date: Date
 }
