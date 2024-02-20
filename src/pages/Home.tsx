@@ -1,19 +1,21 @@
 import { useLoaderData } from "react-router-dom";
 import { Form } from "../components/Form";
-import { getAllRooms} from "../lib/apiCalls";
+import { getAllRoomTypes, getAllRooms} from "../lib/apiCalls";
 import { getTypesAndCities } from "../lib/utils";
 
 export const homeLoader = async () => {
  
   const rooms  = await getAllRooms();
+  const types = await getAllRoomTypes();
   const {roomTypes, cities} = getTypesAndCities(rooms);
-  return {cities, roomTypes};
+  return {cities, roomTypes, types};
 
 }
 
 function Home() {
   
-  const {roomTypes, cities} = useLoaderData() as any;
+  const {roomTypes, cities, types} = useLoaderData() as any;
+  console.log(types);
   
   return ( 
 

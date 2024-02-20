@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router-dom";
-import { useSearchResultRooms } from "../lib/apiCalls";
+import { useSearchResultRooms, useGetAllRooms, getAllRooms } from "../lib/apiCalls";
 
 
 function Rooms() {
@@ -12,17 +12,27 @@ function Rooms() {
     queryData[key] = value;
   });
 
-  const { rooms } = useSearchResultRooms(queryData);
-  const roomList = rooms.map((room) =>
-        <li key={room.id}> {room.attributes.name}</li>
-    );
+  const { rooms, error } = useSearchResultRooms(queryData);
+ 
+   if (error) {
+    console.log(error);
+    
+  }
 
   return (
     <>
       <div className="w-1/4 bg-blue-500 h-screen">
 
       </div>
-      <ul>{roomList}</ul>
+      <ul>
+        {
+          rooms && rooms.length>0  
+          ?rooms.map((room) =>
+            <li key={room.id}> {room.attributes.name}</li>
+          )
+          :<p>No rooms Available</p>
+        }
+        </ul>
     </>
     
   )
