@@ -12,6 +12,11 @@ export type User = {
 
 }
 
+export type RoomType = {
+    id:number,
+    title:string
+}
+
 export type Room = {
     id? : string,
     attributes: {
@@ -34,6 +39,7 @@ export type Room = {
         updated_at: Date
     },
     relationships: {
+        roomType: RoomType
         reviews: Review[] | [],
         favorite_total: number
  
@@ -99,7 +105,7 @@ export type SelectProps = {
     name: string,
     id: string,
     placeholder: string,
-    values:string[],
+    values:option[],
     rules?: object
 }
 

@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router-dom";
-import { useSearchResultRooms, useGetAllRooms, getAllRooms } from "../lib/apiCalls";
+import { useSearchResultRooms} from "../lib/apiCalls";
 
 
 function Rooms() {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import apiClient from "./apiClient";
-import { Room, option } from "../types";
+import { Room, RoomType} from "../types";
 
 
 export const getAllRooms = async () => {
@@ -21,12 +21,9 @@ export const getAllRooms = async () => {
 }
 
 
-//TO DO
 export const getAllRoomTypes = async () => {
 
-  //let cities:object[] = []
-  let roomTypes:option[] = []
-  let rooms = await getAllRooms();
+  let roomTypes:RoomType[] = []
 
   try {
     await apiClient.get('/api/roomtype')
@@ -36,12 +33,10 @@ export const getAllRoomTypes = async () => {
     .catch(error => console.error(error));
   } catch (error) {
     console.log(error);
-  } 
-
-  //const cities = [...new Set(rooms.map(room => room.attributes.city))];
- 
+  }  
   return roomTypes
 }
+
 
 export const useGetAllRooms = () =>{
 
@@ -68,13 +63,13 @@ export const useGetAllRooms = () =>{
   
 }
 
-export const useSearchResultRooms = (formData:object) =>{
+export const useSearchResultRooms = (formData:Record<string, any>) =>{
 
   const [rooms, setRooms] = useState<Room[]>([]);
   const [error, seterror] = useState();
 
   useEffect(() => {
-    const getAllRooms = async (query:object) => {
+    const getAllRooms = async (query:Record<string, any>) => {
       try {
         await apiClient.post('/api/roomsearch', query)
         .then(response => {

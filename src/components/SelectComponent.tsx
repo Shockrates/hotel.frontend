@@ -20,8 +20,8 @@ export const SelectComponent = ({name, id, placeholder, values, rules}: SelectPr
                         { (values.length == 0)
                                 ?<option value="" >{`No ${name} available`}</option>
                                 : values.map((option, index) => (
-                                    <option key={index} value={option}>
-                                        {option}
+                                    <option key={index} value={option.value}>
+                                        {option.label}
                                     </option>
                                 ))
                         }

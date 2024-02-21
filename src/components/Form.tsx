@@ -24,7 +24,7 @@ export const Form = ({cities, roomTypes}: any) => {
             } 
         })
         .join('&');
-        //console.log(quesryString);
+        //console.log(formData);
 
         navigate(`/rooms?${quesryString}`);
      
