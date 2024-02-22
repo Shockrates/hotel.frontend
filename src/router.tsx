@@ -40,6 +40,7 @@ const router = createBrowserRouter([
             {
                 path: '/rooms',
                 element: <Rooms />,
+                loader: homeLoader,
               
             },
             // {

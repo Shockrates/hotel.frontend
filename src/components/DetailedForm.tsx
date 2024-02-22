@@ -1,19 +1,14 @@
-import { FormProvider, useForm } from 'react-hook-form'
-import "react-datepicker/dist/react-datepicker.css";
-import { DatePickerInput } from './DatePickerInput';
-import { SimpleFormValues } from '../types';
+import { FormProvider, useForm } from "react-hook-form"
+import { SimpleFormValues } from "../types"
+import { SelectComponent } from "./SelectComponent"
+import { DatePickerInput } from "./DatePickerInput"
 import { addDays } from 'flowbite-react/lib/esm/components/Datepicker/helpers';
-import { SelectComponent } from './SelectComponent';
-import { useNavigate} from 'react-router-dom';
 
 
 
-export const Form = ({cities, roomTypes}: any) => {
+export const DetailedForm = ({cities, roomTypes}: any) => {
 
-   
-    const navigate = useNavigate();
-
-    const methods = useForm<SimpleFormValues>()
+    const methods = useForm<SimpleFormValues>();
 
     const checkInValue = methods.watch('check_in_date');
     const checkOutValue = methods.watch('check_out_date');
@@ -26,16 +21,15 @@ export const Form = ({cities, roomTypes}: any) => {
             } 
         })
         .join('&');
-        //console.log(quesryString);
+        console.log(quesryString);
 
-        navigate(`/rooms?${quesryString}`);
+        //navigate(`/rooms?${quesryString}`);
      
     })
 
-
     return (
         <>
-            <FormProvider {...methods}>
+              <FormProvider {...methods}>
                 <form
                     className='container bg-[#fff] space-y-4 md:space-y-6 p-6 rounded-xl w-full shadow-lg '
                     onSubmit={e => e.preventDefault()}
@@ -43,7 +37,7 @@ export const Form = ({cities, roomTypes}: any) => {
 
                 >
                     <div className="mt-5 text-center bg-white">
-                        <div className="grid gap-5 md:grid-cols-2">
+                        <div className="flex flex-col gap-5">
 
                             {/* <InputComponent
                                 name="name"

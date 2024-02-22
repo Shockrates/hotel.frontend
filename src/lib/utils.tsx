@@ -8,8 +8,7 @@ export const castToFormOptions = (rooms:Room[]) => {
    .map((element) => {
         return {label: element.title, value: element.id.toString()}
     });
-   ;
-    console.log(roomTypes);
+  
     
     const cities:option[] = [...new Set(rooms.map(room => room.attributes.city))]
     .map((element) => {

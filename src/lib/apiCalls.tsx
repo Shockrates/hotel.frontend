@@ -70,6 +70,8 @@ export const useSearchResultRooms = (formData:Record<string, any>) =>{
 
   useEffect(() => {
     const getAllRooms = async (query:Record<string, any>) => {
+      console.log(query);
+      
       try {
         await apiClient.post('/api/roomsearch', query)
         .then(response => {

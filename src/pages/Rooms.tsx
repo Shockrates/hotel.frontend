@@ -1,10 +1,18 @@
-import { useSearchParams } from "react-router-dom";
+import { useLoaderData, useSearchParams } from "react-router-dom";
 import { useSearchResultRooms} from "../lib/apiCalls";
+import { option } from "../types";
+import { DetailedForm } from "../components/DetailedForm";
 
+type formProps = {
+  cities: option[]
+  roomTypes: option[],
+  
+}
 
 function Rooms() {
 
   const [params, setParams] = useSearchParams();
+  const {cities, roomTypes} = useLoaderData() as formProps;
 
   const queryData: Record<string, any> = {};
 
@@ -16,13 +24,12 @@ function Rooms() {
  
    if (error) {
     console.log(error);
-    
   }
 
   return (
     <>
       <div className="w-1/4 bg-blue-500 h-screen">
-
+      <DetailedForm cities={cities} roomTypes={roomTypes} />
       </div>
       <ul>
         {
