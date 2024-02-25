@@ -3,6 +3,7 @@ import { SimpleFormValues } from "../types"
 import { SelectComponent } from "./SelectComponent"
 import { DatePickerInput } from "./DatePickerInput"
 import { addDays } from 'flowbite-react/lib/esm/components/Datepicker/helpers';
+ import { PriceSlider } from "./PriceSlider";
 
 
 
@@ -22,7 +23,6 @@ export const DetailedForm = ({cities, roomTypes}: any) => {
         })
         .join('&');
         console.log(quesryString);
-
         //navigate(`/rooms?${quesryString}`);
      
     })
@@ -39,15 +39,7 @@ export const DetailedForm = ({cities, roomTypes}: any) => {
                     <div className="mt-5 text-center bg-white">
                         <div className="flex flex-col gap-5">
 
-                            {/* <InputComponent
-                                name="name"
-                                type="text"
-                                id="name"
-                                placeholder="Type your name..."
-                                rules = {
-                                    { required: 'Name is Required' }
-                                }
-                            /> */}
+            
                             
                             <SelectComponent
                                 name="city"
@@ -85,7 +77,15 @@ export const DetailedForm = ({cities, roomTypes}: any) => {
                                 minDate={addDays(new Date(checkInValue), 1)}
                                 
                             />
-
+                            <PriceSlider 
+                                initialMin={10} 
+                                initialMax={400}
+                                min={0}
+                                max={500}
+                                step={1}
+                                priceCap={0}
+                            />
+                             {/* <RangeSliderComponent nameMin="minPrice" nameMax="maxPrice" min={0} max={100} step={5} value={value} onChange={setValue} /> */}
                         </div>
                     </div>
                     <div className="my-2 mx-0 text-center">

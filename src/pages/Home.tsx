@@ -27,7 +27,7 @@ function Home() {
 
     <div className='mx-auto transform animate-slideIn'>
       <div className="mt-10"></div>
-      <Form cities={cities} roomTypes={roomTypes} />
+      <Form cities={cities} roomTypes={roomTypes} formStyle="grid gap-5 md:grid-cols-2"/>
     </div>   
     
   )

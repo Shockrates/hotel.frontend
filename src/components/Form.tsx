@@ -8,7 +8,7 @@ import { useNavigate} from 'react-router-dom';
 
 
 
-export const Form = ({cities, roomTypes}: any) => {
+export const Form = ({cities, roomTypes, formStyle, children}: any) => {
 
    
     const navigate = useNavigate();
@@ -43,17 +43,7 @@ export const Form = ({cities, roomTypes}: any) => {
 
                 >
                     <div className="mt-5 text-center bg-white">
-                        <div className="grid gap-5 md:grid-cols-2">
-
-                            {/* <InputComponent
-                                name="name"
-                                type="text"
-                                id="name"
-                                placeholder="Type your name..."
-                                rules = {
-                                    { required: 'Name is Required' }
-                                }
-                            /> */}
+                        <div className={formStyle}>
                             
                             <SelectComponent
                                 name="city"
@@ -70,6 +60,7 @@ export const Form = ({cities, roomTypes}: any) => {
                                  placeholder="Room Type"
                                  values={roomTypes}
                             />
+                            {children}
                             <DatePickerInput
                                 name="check_in_date"
                                 id="check_in_date"

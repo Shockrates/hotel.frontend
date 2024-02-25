@@ -2,12 +2,16 @@ import { useLoaderData, useSearchParams } from "react-router-dom";
 import { useSearchResultRooms} from "../lib/apiCalls";
 import { option } from "../types";
 import { DetailedForm } from "../components/DetailedForm";
+import { PriceSlider } from "../components/PriceSlider";
+import { Form } from "../components/Form";
 
 type formProps = {
   cities: option[]
   roomTypes: option[],
   
 }
+
+
 
 function Rooms() {
 
@@ -26,10 +30,23 @@ function Rooms() {
     console.log(error);
   }
 
+  
+
   return (
     <>
       <div className="w-1/4 bg-blue-500 h-screen">
-      <DetailedForm cities={cities} roomTypes={roomTypes} />
+      <Form 
+        cities={cities} 
+        roomTypes={roomTypes} 
+        formStyle="flex flex-col gap-5" 
+        children={<PriceSlider 
+                    initialMin={10} 
+                    initialMax={400}
+                    min={0}
+                    max={500}
+                    step={1}
+                    priceCap={0}
+                />}/>
       </div>
       <ul>
         {
