@@ -6,9 +6,9 @@ function MainLayout() {
   return (
     <>
      
-      <div className="h-full min-h-screen sm:w-2/3 min-w-[512px] m-auto">
+      <div className="h-full min-h-screen w-full m-1 lg:w-4/5 2xl:w-2/3 lg:m-auto sm:min-w-[540px]">
         <MainNavbar />
-        <div className='flex flex-row pt-20'>
+        <div className='flex flex-row pt-20 w-full'>
           <Outlet />
         </div>
         

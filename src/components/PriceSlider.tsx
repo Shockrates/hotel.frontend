@@ -60,7 +60,7 @@ export const PriceSlider = ({initialMin, initialMax,  min, max, step, priceCap}:
       }, [minValue, maxValue, max, step]);
 
   return (
-    <div className='flex flex-col w-full'>
+    <div className='flex flex-col w-full gap-2'>
         RangeSlider
         <div className="flex justify-between items-center my-6">
             <div className="rounded-md">
