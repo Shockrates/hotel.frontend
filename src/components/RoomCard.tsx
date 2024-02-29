@@ -5,7 +5,8 @@ import { Modal, ModalBody } from 'flowbite-react'
 
 
 type roomCardProps = {
-    room:Room
+   
+  room:Room
 }
 
 const RoomCard = ({room}:roomCardProps) => {

@@ -1,10 +1,11 @@
 import { useLoaderData, useSearchParams } from "react-router-dom";
-import { useSearchResultRooms} from "../lib/apiCalls";
-import { option } from "../types";
+import { searchRooms, useSearchResultRooms} from "../lib/apiCalls";
+import { Room, option } from "../types";
 import { DetailedForm } from "../components/DetailedForm";
 import { PriceSlider } from "../components/PriceSlider";
 import { Form } from "../components/Form";
 import RoomCard from "../components/RoomCard";
+import { useEffect, useState } from "react";
 
 type formProps = {
   cities: option[]
@@ -14,24 +15,40 @@ type formProps = {
 
 
 
-function Rooms() {
+const  Rooms = () => {
 
   const [params, setParams] = useSearchParams();
   const {cities, roomTypes} = useLoaderData() as formProps;
 
   const queryData: Record<string, any> = {};
 
+  const [rooms, setRooms] = useState<Room[]>()
+  const [error, setError] = useState()
+
   params.forEach((value, key) => {
     queryData[key] = value;
   });
 
-  const { rooms, error } = useSearchResultRooms(queryData);
+
+//TO DO -> THIS CAUSES ERRORS
+  useEffect(() => {
+    // declare the async data fetching function
+    const fetchData = async () => {
+      // get the data from the api
+      const { rooms, error } = await searchRooms(queryData);
+      setRooms(rooms);
+      setError(error);
+    }
+    // call the function
+    fetchData()
+      // make sure to catch any error
+      .catch(console.error);;
+  }, [queryData])
  
-   if (error) {
+  if (error) {
     console.log(error);
   }
 
-  
 
   return (
     <>
@@ -54,16 +71,16 @@ function Rooms() {
             <header className="bg-orange-500 rounded mb-4 px-2 py-1">
               <h2 className="font-body font-medium text-lg text-left text-white m-1">Search Results</h2>
             </header>
-            <ul>
+            
               {
                 rooms && rooms.length>0  
                 ?rooms.map((room) =>
                   // <li key={room.id}> {room.attributes.name}</li>
-                  <RoomCard room={room} />
+                  <RoomCard key={room.id} room={room} />
                 )
                 :<p>No rooms Available</p>
               }
-              </ul>
+             
       </section>
     </div>
       

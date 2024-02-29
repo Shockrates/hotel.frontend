@@ -103,3 +103,26 @@ export const handleLogout = async () => {
     console.log(error);
   }
 };
+
+export const searchRooms = async (formData:Record<string, any>) =>{
+
+  // const [rooms, setRooms] = useState<Room[]>([]);
+  // const [error, seterror] = useState();
+  let rooms:Room[] = [];
+  let error;
+
+
+  try {
+    await apiClient.post('/api/roomsearch', formData)
+    .then(response => {
+        rooms = response.data.data ;      
+    })
+    .catch(err => error = err.response.data.message);
+  } catch (error) {
+    console.log(error);
+  } 
+    
+  return {
+    rooms, error
+  }
+}
