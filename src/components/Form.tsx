@@ -3,14 +3,16 @@ import "react-datepicker/dist/react-datepicker.css";
 import { DatePickerInput } from './DatePickerInput';
 import { SimpleFormValues } from '../types';
 import { addDays } from 'flowbite-react/lib/esm/components/Datepicker/helpers';
-import { SelectComponent } from './SelectComponent';
-import { useNavigate} from 'react-router-dom';
+import {SelectInput } from './SelectInput';
+import { ActionFunctionArgs, useNavigate, useSearchParams} from 'react-router-dom';
+import { formDataToQuery } from '../lib/utils';
 
 
 
-export const Form = ({cities, roomTypes, formStyle, children}: any) => {
+export const Form = ({cities, roomTypes, formStyle, children, action}: any) => {
 
-   
+    const [params, setParams] = useSearchParams();
+    
     const navigate = useNavigate();
 
     const methods = useForm<SimpleFormValues>()
@@ -18,18 +20,22 @@ export const Form = ({cities, roomTypes, formStyle, children}: any) => {
     const checkInValue = methods.watch('check_in_date');
     const checkOutValue = methods.watch('check_out_date');
 
-    const onSubmit = methods.handleSubmit(async (formData) => {
+    const onSubmit = methods.handleSubmit((formData) => {
 
-        const quesryString = Object.entries(formData).map(([key, value]) => {
+        const quesryString = formDataToQuery(formData);
+        //Testing
+        Object.entries(formData).map(([key, value]) => {
             if ( value) {
-                return `${key}=${(value instanceof Date)? value.toDateString() : value.toString()}` 
+                setParams(prev =>{
+                    prev.set(key, (value instanceof Date)? value.toDateString() : value.toString())
+                    return prev
+                })
             } 
         })
-        .join('&');
+        
         //console.log(quesryString);
 
-        navigate(`/rooms?${quesryString}`);
-     
+        navigate(`/rooms?${quesryString}`); 
     })
 
 
@@ -37,6 +43,7 @@ export const Form = ({cities, roomTypes, formStyle, children}: any) => {
         <>
             <FormProvider {...methods}>
                 <form
+                    action={action}
                     className='container bg-[#fff] space-y-4 md:space-y-6 p-6 rounded-xl w-full shadow-lg '
                     onSubmit={e => e.preventDefault()}
                     noValidate
@@ -45,7 +52,7 @@ export const Form = ({cities, roomTypes, formStyle, children}: any) => {
                     <div className="mt-5 text-center bg-white">
                         <div className={formStyle}>
                             
-                            <SelectComponent
+                            <SelectInput
                                 name="city"
                                 id="city"
                                 placeholder="City"
@@ -54,7 +61,7 @@ export const Form = ({cities, roomTypes, formStyle, children}: any) => {
                                     { required: 'City is Required' }
                                 }
                             />
-                            <SelectComponent
+                            <SelectInput
                                  name="type_id"
                                  id="roomType"
                                  placeholder="Room Type"

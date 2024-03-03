@@ -1,6 +1,6 @@
 import { FormProvider, useForm } from "react-hook-form"
 import { SimpleFormValues } from "../types"
-import { SelectComponent } from "./SelectComponent"
+import { SelectComponent } from "./SelectInput"
 import { DatePickerInput } from "./DatePickerInput"
 import { addDays } from 'flowbite-react/lib/esm/components/Datepicker/helpers';
  import { PriceSlider } from "./PriceSlider";

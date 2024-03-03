@@ -1,7 +1,6 @@
 import { useLoaderData, useSearchParams } from "react-router-dom";
 import { searchRooms, useSearchResultRooms} from "../lib/apiCalls";
 import { Room, option } from "../types";
-import { DetailedForm } from "../components/DetailedForm";
 import { PriceSlider } from "../components/PriceSlider";
 import { Form } from "../components/Form";
 import RoomCard from "../components/RoomCard";
@@ -22,28 +21,28 @@ const  Rooms = () => {
 
   const queryData: Record<string, any> = {};
 
-  const [rooms, setRooms] = useState<Room[]>()
-  const [error, setError] = useState()
+  // const [rooms, setRooms] = useState<Room[]>()
+  // const [error, setError] = useState()
 
   params.forEach((value, key) => {
     queryData[key] = value;
   });
 
-
+  const { rooms, error } = useSearchResultRooms(queryData);
 //TO DO -> THIS CAUSES ERRORS
-  useEffect(() => {
-    // declare the async data fetching function
-    const fetchData = async () => {
-      // get the data from the api
-      const { rooms, error } = await searchRooms(queryData);
-      setRooms(rooms);
-      setError(error);
-    }
-    // call the function
-    fetchData()
-      // make sure to catch any error
-      .catch(console.error);;
-  }, [queryData])
+  // useEffect(() => {
+  //   // declare the async data fetching function
+  //   const fetchData = async () => {
+  //     // get the data from the api
+  //     const { rooms, error } = await searchRooms(queryData);
+  //     setRooms(rooms);
+  //     setError(error);
+  //   }
+  //   // call the function
+  //   fetchData()
+  //     // make sure to catch any error
+  //     .catch(console.error);;
+  // }, [queryData])
  
   if (error) {
     console.log(error);

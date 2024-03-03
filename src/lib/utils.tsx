@@ -1,4 +1,4 @@
-import { Room, option } from "../types";
+import { Room, SimpleFormValues, option } from "../types";
 
 export const castToFormOptions = (rooms:Room[]) => {
 
@@ -23,11 +23,17 @@ export const castToFormOptions = (rooms:Room[]) => {
     //     return {label: element, value: element}
     // });
     
-
-    
-
     return {
         roomTypes,
         cities 
     }
+}
+
+export const formDataToQuery = (formData: SimpleFormValues) => {
+    return Object.entries(formData).map(([key, value]) => {
+        if ( value) {
+            return `${key}=${(value instanceof Date)? value.toDateString() : value.toString()}` 
+        } 
+    })
+    .join('&');
 }

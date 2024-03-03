@@ -1,7 +1,7 @@
 import { useFormContext } from "react-hook-form";
 import { SelectProps } from "../types";
 
-export const SelectComponent = ({name, id, placeholder, values, rules}: SelectProps) => { 
+export const SelectInput = ({name, id, placeholder, values, rules}: SelectProps) => { 
 
     const { register, formState: { errors } } = useFormContext()
     const required = (rules?.hasOwnProperty('required'));
