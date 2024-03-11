@@ -5,7 +5,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import AuthLayout from "./layouts/AuthLayout";
 import MainLayout from "./layouts/MainLayout";
-import Rooms from "./pages/Rooms";
+import Rooms, { roomLoader } from "./pages/Rooms";
+import { searchRoomAction } from "./components/Form";
 
 const router = createBrowserRouter([
     {
@@ -16,6 +17,7 @@ const router = createBrowserRouter([
                 path:'/',
                 element:<Home />,
                 loader: homeLoader,
+                action: searchRoomAction
             },
             {
                 element: <AuthLayout />,
@@ -40,7 +42,7 @@ const router = createBrowserRouter([
             {
                 path: '/rooms',
                 element: <Rooms />,
-                loader: homeLoader,
+                loader: roomLoader,
               
             },
             // {

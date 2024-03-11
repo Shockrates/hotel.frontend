@@ -12,10 +12,11 @@ type formProps = {
 
 export const homeLoader = async ({ params }: LoaderFunctionArgs) => {
   
-  const rooms = await getAllRooms();
-  const {cities, roomTypes} = castToFormOptions(rooms);
   
-  return {cities, roomTypes};
+  const rooms = await getAllRooms();
+  const {cities, roomTypes, min, max} = castToFormOptions(rooms);
+  
+  return {cities, roomTypes, min, max};
 
 }
 

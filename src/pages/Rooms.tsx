@@ -1,15 +1,27 @@
 import { useLoaderData, useSearchParams } from "react-router-dom";
-import { searchRooms, useSearchResultRooms} from "../lib/apiCalls";
+import { getAllRooms, searchRooms, useSearchResultRooms} from "../lib/apiCalls";
 import { Room, option } from "../types";
 import { PriceSlider } from "../components/PriceSlider";
 import { Form } from "../components/Form";
 import RoomCard from "../components/RoomCard";
 import { useEffect, useState } from "react";
+import { castToFormOptions } from "../lib/utils";
 
 type formProps = {
   cities: option[]
   roomTypes: option[],
+  min: number,
+  max: number,
+}
+
+export const roomLoader = async () => {
   
+  
+  const rooms = await getAllRooms();
+  const {cities, roomTypes, min, max} = castToFormOptions(rooms);
+ 
+  return {cities, roomTypes, min, max};
+
 }
 
 
@@ -17,7 +29,7 @@ type formProps = {
 const  Rooms = () => {
 
   const [params, setParams] = useSearchParams();
-  const {cities, roomTypes} = useLoaderData() as formProps;
+  const {cities, roomTypes, min, max} = useLoaderData() as formProps;
 
   const queryData: Record<string, any> = {};
 
@@ -27,6 +39,9 @@ const  Rooms = () => {
   params.forEach((value, key) => {
     queryData[key] = value;
   });
+
+  //console.log(queryData);
+  
 
   const { rooms, error } = useSearchResultRooms(queryData);
 //TO DO -> THIS CAUSES ERRORS
@@ -58,10 +73,10 @@ const  Rooms = () => {
           roomTypes={roomTypes} 
           formStyle="flex flex-col gap-5" 
           children={<PriceSlider 
-                      initialMin={10} 
-                      initialMax={400}
+                      initialMin={min} 
+                      initialMax={Math.round(max*2/3)}
                       min={0}
-                      max={500}
+                      max={max}
                       step={1}
                       priceCap={0}
                   />}/>

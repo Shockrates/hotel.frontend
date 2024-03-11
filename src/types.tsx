@@ -98,6 +98,7 @@ export type datePickerProps = {
     name: string,
     id: string,
     placeholder: string,
+    defaultValue:string | null,
     rules?: object
     minDate?: Date,
     maxDate?: Date
@@ -107,6 +108,7 @@ export type SelectProps = {
     name: string,
     id: string,
     placeholder: string,
+    defaultValue: string | null,
     values:option[],
     rules?: object
 }

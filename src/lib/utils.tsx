@@ -14,6 +14,9 @@ export const castToFormOptions = (rooms:Room[]) => {
     .map((element) => {
         return {label: element, value: element}
     });
+
+    const max:number = Math.max(...[...new Set(rooms.map(room => room.attributes.price))])
+    const min:number = Math.min(...[...new Set(rooms.map(room => room.attributes.price))])
     
     // const roomTypes: option[] = _types.map((element) => {
     //     return {label: element.title, value: element.id.toString()}
@@ -25,7 +28,9 @@ export const castToFormOptions = (rooms:Room[]) => {
     
     return {
         roomTypes,
-        cities 
+        cities,
+        max,
+        min 
     }
 }
 

@@ -4,9 +4,17 @@ import { DatePickerInput } from './DatePickerInput';
 import { SimpleFormValues } from '../types';
 import { addDays } from 'flowbite-react/lib/esm/components/Datepicker/helpers';
 import {SelectInput } from './SelectInput';
-import { ActionFunctionArgs, useNavigate, useSearchParams} from 'react-router-dom';
+import { ActionFunctionArgs, useActionData, useNavigate, useSearchParams} from 'react-router-dom';
 import { formDataToQuery } from '../lib/utils';
 
+export const searchRoomAction = async ({ request }: ActionFunctionArgs) =>{
+    // Get the form data from the request
+    const formData = await request.formData();
+    // Convert the form data to an object format
+    const payload = Object.fromEntries(formData.entries());
+    return payload
+    
+}
 
 
 export const Form = ({cities, roomTypes, formStyle, children, action}: any) => {
@@ -33,7 +41,7 @@ export const Form = ({cities, roomTypes, formStyle, children, action}: any) => {
             } 
         })
         
-        //console.log(quesryString);
+        //console.log(params);
 
         navigate(`/rooms?${quesryString}`); 
     })
@@ -56,6 +64,7 @@ export const Form = ({cities, roomTypes, formStyle, children, action}: any) => {
                                 name="city"
                                 id="city"
                                 placeholder="City"
+                                defaultValue={params.get('city')}
                                 values={cities}
                                 rules = {
                                     { required: 'City is Required' }
@@ -65,6 +74,7 @@ export const Form = ({cities, roomTypes, formStyle, children, action}: any) => {
                                  name="type_id"
                                  id="roomType"
                                  placeholder="Room Type"
+                                 defaultValue={params.get('type_id')}
                                  values={roomTypes}
                             />
                             {children}
@@ -72,6 +82,7 @@ export const Form = ({cities, roomTypes, formStyle, children, action}: any) => {
                                 name="check_in_date"
                                 id="check_in_date"
                                 placeholder="Choose Check-In Date"
+                                defaultValue={params.get('check_in_date')}
                                 rules = {
                                     { required: 'Please enter check in date' }
                                 }
@@ -82,6 +93,7 @@ export const Form = ({cities, roomTypes, formStyle, children, action}: any) => {
                             <DatePickerInput
                                 name="check_out_date"
                                 id="check_out_date"
+                                defaultValue={params.get('check_out_date')}
                                 rules = {
                                     { required: 'Please enter check out date' }
                                 }

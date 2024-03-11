@@ -1,7 +1,7 @@
 import { useFormContext } from "react-hook-form";
 import { SelectProps } from "../types";
 
-export const SelectInput = ({name, id, placeholder, values, rules}: SelectProps) => { 
+export const SelectInput = ({name, id, placeholder, defaultValue, values, rules}: SelectProps) => { 
 
     const { register, formState: { errors } } = useFormContext()
     const required = (rules?.hasOwnProperty('required'));
@@ -12,7 +12,7 @@ export const SelectInput = ({name, id, placeholder, values, rules}: SelectProps)
                     <select 
                         id={id}
                         className="w-full p-5 font-medium border rounded-md border-slate-300 placeholder:opacity-60"
-                        defaultValue={""}
+                        defaultValue={defaultValue ? defaultValue : ""}
                         {...register(name, rules)} 
                     >
                   

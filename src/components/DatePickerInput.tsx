@@ -4,7 +4,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 
-export const DatePickerInput = ({name, id, placeholder,rules, minDate, maxDate}: datePickerProps) => {
+export const DatePickerInput = ({name, id, placeholder, defaultValue ,rules, minDate, maxDate}: datePickerProps) => {
 
     const {  register, control, formState:{errors}  } = useFormContext()
     //const { handleSubmit, control } = useForm();
@@ -16,6 +16,7 @@ export const DatePickerInput = ({name, id, placeholder,rules, minDate, maxDate}:
                         control={control}
                         name = {name}
                         rules={rules}
+                        defaultValue={defaultValue? new Date(defaultValue) : ""}
                         render={({ field: { onChange, onBlur, value,  ref } }) => (
                             <DatePicker 
                                 id={id}
