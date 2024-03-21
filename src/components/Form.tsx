@@ -32,14 +32,14 @@ export const Form = ({cities, roomTypes, formStyle, children, action}: any) => {
 
         const quesryString = formDataToQuery(formData);
         //Testing
-        Object.entries(formData).map(([key, value]) => {
-            if ( value) {
-                setParams(prev =>{
-                    prev.set(key, (value instanceof Date)? value.toDateString() : value.toString())
-                    return prev
-                })
-            } 
-        })
+        // Object.entries(formData).map(([key, value]) => {
+        //     if ( value) {
+        //         setParams(prev =>{
+        //             prev.set(key, (value instanceof Date)? value.toDateString() : value.toString())
+        //             return prev
+        //         })
+        //     } 
+        // })
         
         //console.log(params);
 

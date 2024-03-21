@@ -26,12 +26,12 @@ export const PriceSlider = ({initialMin, initialMax,  min, max, step, priceCap}:
         if (parseInt(e.target.value) > maxValue) {
         } else {
             setMinValue(parseInt(e.target.value));
-            setValue('minPrice', parseInt(e.target.value));
+            setValue('min_price', parseInt(e.target.value));
         }
         } else {
         if (parseInt(e.target.value) < minValue) {
             setMinValue(parseInt(e.target.value));
-            setValue('minPrice', parseInt(e.target.value));
+            setValue('min_price', parseInt(e.target.value));
         }
         }
     };
@@ -41,12 +41,12 @@ export const PriceSlider = ({initialMin, initialMax,  min, max, step, priceCap}:
         if (parseInt(e.target.value) < minValue) {
         } else {
             setMaxValue(parseInt(e.target.value));
-            setValue('maxPrice', parseInt(e.target.value));
+            setValue('max_price', parseInt(e.target.value));
         }
         } else {
         if (parseInt(e.target.value) > maxValue) {
             setMaxValue(parseInt(e.target.value));
-            setValue('maxPrice', parseInt(e.target.value));
+            setValue('max_price', parseInt(e.target.value));
         }
         }
     };
@@ -70,7 +70,7 @@ export const PriceSlider = ({initialMin, initialMax,  min, max, step, priceCap}:
                     type="number" 
                     value={minValue}
                     className='w-24 rounded-md border border-gray-400'
-                    {...register("minPrice",
+                    {...register("min_price",
                         {onChange: (e) => setMinValue(e.target.value)}
                     )}
                     
@@ -84,7 +84,7 @@ export const PriceSlider = ({initialMin, initialMax,  min, max, step, priceCap}:
                 type="number"
                 value={maxValue}
                 className="w-24 rounded-md border border-gray-400"
-                {...register("maxPrice",
+                {...register("max_price",
                     {onChange: (e) => setMaxValue(e.target.value)}
                 )}
                 />

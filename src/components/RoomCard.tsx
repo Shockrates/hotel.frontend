@@ -21,6 +21,7 @@ const RoomCard = ({room}:roomCardProps) => {
           <p className='text-neutral-500 font-semibold text-2xl'>{room.attributes.city}, {room.attributes.area}</p>
           <p>{room.attributes.description_short}</p>
           <div className="flex justify-end w-full text-right mt-6">
+            <p>Price:{room.attributes.price}</p>
             <button className='flex bg-orange-500 items-center justify-center text-white text-base h-7 rounded-md px-1 py-5 my-1'>
               <span>Go to room Page</span>
             </button>

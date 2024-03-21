@@ -33,8 +33,8 @@ const  Rooms = () => {
 
   const queryData: Record<string, any> = {};
 
-  // const [rooms, setRooms] = useState<Room[]>()
-  // const [error, setError] = useState()
+  const [rooms, setRooms] = useState<Room[]>()
+  const [error, setError] = useState()
 
   params.forEach((value, key) => {
     queryData[key] = value;
@@ -43,21 +43,21 @@ const  Rooms = () => {
   //console.log(queryData);
   
 
-  const { rooms, error } = useSearchResultRooms(queryData);
-//TO DO -> THIS CAUSES ERRORS
-  // useEffect(() => {
-  //   // declare the async data fetching function
-  //   const fetchData = async () => {
-  //     // get the data from the api
-  //     const { rooms, error } = await searchRooms(queryData);
-  //     setRooms(rooms);
-  //     setError(error);
-  //   }
-  //   // call the function
-  //   fetchData()
-  //     // make sure to catch any error
-  //     .catch(console.error);;
-  // }, [queryData])
+  //const { rooms, error } = useSearchResultRooms(queryData);
+
+  useEffect(() => {
+    // declare the async data fetching function
+    const fetchData = async () => {
+      // get the data from the api
+      const { rooms, error } = await searchRooms(queryData);
+      setRooms(rooms);
+      setError(error);
+    }
+    // call the function
+    fetchData()
+      // make sure to catch any error
+      .catch(console.error);;
+  }, [params])
  
   if (error) {
     console.log(error);
