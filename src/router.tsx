@@ -5,8 +5,10 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import AuthLayout from "./layouts/AuthLayout";
 import MainLayout from "./layouts/MainLayout";
-import Rooms, { roomLoader } from "./pages/Rooms";
+import RoomList, { roomListLoader} from "./pages/RoomList";
 import { searchRoomAction } from "./components/Form";
+import RoomDetails, { roomDetailsLoader } from "./pages/Room";
+
 
 const router = createBrowserRouter([
     {
@@ -41,14 +43,15 @@ const router = createBrowserRouter([
         children:[ 
             {
                 path: '/rooms',
-                element: <Rooms />,
-                loader: roomLoader,
+                element: <RoomList />,
+                loader: roomListLoader,
               
             },
-            // {
-            //     path: '/room/:id',
-            //     element: <Room />
-            // },   
+            {
+                path: '/room/:id',
+                element: <RoomDetails />,
+                loader: roomDetailsLoader,
+            },   
 			// {
 			// 	path: '/profile',
 			// 	element: <Profile />,

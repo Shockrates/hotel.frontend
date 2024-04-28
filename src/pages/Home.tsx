@@ -10,6 +10,8 @@ type formProps = {
   
 }
 
+type HomeLoaderResponse = Awaited<ReturnType<typeof homeLoader>>;
+
 export const homeLoader = async ({ params }: LoaderFunctionArgs) => {
   
   
@@ -19,8 +21,6 @@ export const homeLoader = async ({ params }: LoaderFunctionArgs) => {
   return {cities, roomTypes, min, max};
 
 }
-
-export type HomeLoaderResponse = Awaited<ReturnType<typeof homeLoader>>;
 
 
 function Home() {

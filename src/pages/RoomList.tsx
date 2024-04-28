@@ -14,7 +14,7 @@ type formProps = {
   max: number,
 }
 
-export const roomLoader = async () => {
+export const roomListLoader = async () => {
   
   
   const rooms = await getAllRooms();
@@ -26,7 +26,7 @@ export const roomLoader = async () => {
 
 
 
-const  Rooms = () => {
+const  RoomList = () => {
 
   const [params, setParams] = useSearchParams();
   const {cities, roomTypes, min, max} = useLoaderData() as formProps;
@@ -104,4 +104,4 @@ const  Rooms = () => {
   )
 }
 
-export default Rooms
+export default RoomList

@@ -20,6 +20,24 @@ export const getAllRooms = async () => {
   return rooms
 }
 
+export const getRoom = async (id:string) => {
+
+  //let room:Room = null
+
+  try {
+    let room:Room = await apiClient.get(`/api/rooms/${id}`)
+      .then(response => {
+          return response.data.data ;   
+      })
+      .catch(error => console.error(error));
+      return room
+  } catch (error) {
+    console.log(error);
+  } 
+
+  
+}
+
 
 export const getAllRoomTypes = async () => {
 

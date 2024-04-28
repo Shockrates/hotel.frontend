@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Booking, Room } from '../types'
 import { Modal, ModalBody } from 'flowbite-react'
+import { Link } from 'react-router-dom'
 
 
 
@@ -24,9 +25,15 @@ const RoomCard = ({room}:roomCardProps) => {
             <p>{room.attributes.description_short}</p>
             <div className="flex justify-end w-full text-right mt-6">
               
-              <button className='flex bg-orange-500 items-center justify-center text-white text-base h-7 rounded-md px-1 py-5 my-1'>
+              {/* <button className='flex bg-orange-500 items-center justify-center text-white text-base h-7 rounded-md px-1 py-5 my-1'>
                 <span>Go to room Page</span>
+              </button> */}
+            <Link to={`/room/${room.id}`}>
+              <button className='flex bg-orange-500 items-center justify-center text-white text-base h-7 rounded-md px-1 py-5 my-1'>
+                Go to room Page
               </button>
+            </Link>
+
             </div>
           </div>
         </div>
