@@ -40,11 +40,6 @@ const  RoomList = () => {
     queryData[key] = value;
   });
 
-  //console.log(queryData);
-  
-
-  //const { rooms, error } = useSearchResultRooms(queryData);
-
   useEffect(() => {
     // declare the async data fetching function
     const fetchData = async () => {
@@ -56,7 +51,7 @@ const  RoomList = () => {
     // call the function
     fetchData()
       // make sure to catch any error
-      .catch(console.error);;
+      .catch(console.error);
   }, [params])
  
   if (error) {
