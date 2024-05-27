@@ -31,10 +31,10 @@ function RoomDetails() {
     <>
       <div className="flex flex-col w-full">
         <div className="w-full bg-orange-500 rounded mb-4 px-2 py-1 text-left font-semibold text-white">
-          {room.attributes.name}
+          {room.attributes.name} - {room.attributes.city}, {room.attributes.area} | <Rating defaultRating={room.attributes.avg_reviews} editable={false} /*count={3}*//>
         </div> 
         <div className="">
-        <Rating defaultRating={defaultRating} /*count={3}*//>
+        <Rating defaultRating={defaultRating} editable={true} /*count={3}*//>
         </div>
        
     </div>

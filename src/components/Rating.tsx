@@ -7,10 +7,10 @@ type ratingProps = {
    icon?:string,
    color?: string,
    unselectedColor?: string,
-   
+   editable: boolean
   }
 
-export default function Rating({count=5, defaultRating=0, icon="★", color="orange", unselectedColor="grey" }: ratingProps ) {
+export default function Rating({count=5, defaultRating=0, icon="★", color="orange", unselectedColor="grey", editable }: ratingProps ) {
 
     const [rating, setRating] = useState(defaultRating);
     const [hoverRating, setHoverRating] = useState(0);
@@ -25,16 +25,19 @@ export default function Rating({count=5, defaultRating=0, icon="★", color="ora
     <div className='flex'>
         {stars.map((item, index) => {
 
-          const isActiveColor = (rating || hoverRating) && (index < rating || index < hoverRating);
+          const isActiveColor = (rating || hoverRating) && ((index < rating && hoverRating==0)|| index < hoverRating);
 
           let elementColor = unselectedColor;
 
-          if (isActiveColor) {
+          if (isActiveColor ) {
             elementColor = color
           } 
 
             return(
-                <div className="cursor-pointer transition duration-100 ease-linear hover:scale-125 text-6xl" 
+              <>
+              {
+                editable ? (
+                  <div className="cursor-pointer transition duration-100 ease-linear hover:scale-125 text-6xl" 
                       key={index} 
                       style={{color:elementColor}}
                       onMouseEnter={() => setHoverRating(index+1)}
@@ -43,6 +46,18 @@ export default function Rating({count=5, defaultRating=0, icon="★", color="ora
                     >
                     {icon}
                 </div>
+                ) : (
+                  <div className="text-3xl" 
+                      key={index} 
+                      style={{color:elementColor}}
+                    >
+                    {icon}
+                </div>
+                )
+              }
+                
+              </>
+                
             )
         })}
     </div>

@@ -35,6 +35,8 @@ export type Room = {
         parking: boolean,
         wifi: boolean,
         pet_friendly: boolean,
+        avg_reviews:number,
+        count_reviews: number,
         created_at: Date,
         updated_at: Date
     },
