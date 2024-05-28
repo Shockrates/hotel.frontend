@@ -3,6 +3,8 @@ import { useLoaderData } from 'react-router-dom';
 import { getRoom } from '../lib/apiCalls';
 import { Room } from '../types';
 import Rating from '../components/Rating';
+import { FaHeart } from "react-icons/fa6";
+
 
 
 type RoomLoaderResponse = Awaited<ReturnType<typeof roomDetailsLoader>>;
@@ -30,8 +32,8 @@ function RoomDetails() {
   return (
     <>
       <div className="flex flex-col w-full">
-        <div className="w-full bg-orange-500 rounded mb-4 px-2 py-1 text-left font-semibold text-white">
-          {room.attributes.name} - {room.attributes.city}, {room.attributes.area} | <Rating defaultRating={room.attributes.avg_reviews} editable={false} /*count={3}*//>
+        <div className="flex flex-row w-full items-center bg-orange-500 rounded mb-4 px-2 py-1 text-left font-semibold text-white">
+          {room.attributes.name} - {room.attributes.city}, {room.attributes.area} | <Rating defaultRating={room.attributes.avg_reviews} editable={false} /> | <FaHeart size={24} color='yellow'/>
         </div> 
         <div className="">
         <Rating defaultRating={defaultRating} editable={true} /*count={3}*//>

@@ -34,11 +34,11 @@ export default function Rating({count=5, defaultRating=0, icon="★", color="ora
           } 
 
             return(
-              <>
-              {
+              <div key={index} >
+                   {
                 editable ? (
                   <div className="cursor-pointer transition duration-100 ease-linear hover:scale-125 text-6xl" 
-                      key={index} 
+                       
                       style={{color:elementColor}}
                       onMouseEnter={() => setHoverRating(index+1)}
                       onMouseOut={() => setHoverRating(0)}
@@ -48,7 +48,7 @@ export default function Rating({count=5, defaultRating=0, icon="★", color="ora
                 </div>
                 ) : (
                   <div className="text-3xl" 
-                      key={index} 
+            
                       style={{color:elementColor}}
                     >
                     {icon}
@@ -56,7 +56,7 @@ export default function Rating({count=5, defaultRating=0, icon="★", color="ora
                 )
               }
                 
-              </>
+              </div>
                 
             )
         })}
