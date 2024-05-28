@@ -76,7 +76,12 @@ export type DateInfo = {
     value: string
 }
 
-
+export type FormProps = {
+    cities: option[]
+    roomTypes: option[],
+    min: number,
+    max: number,
+  }
 
 export type SimpleFormValues = {
     city: string

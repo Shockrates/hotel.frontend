@@ -1,35 +1,18 @@
-import { useLoaderData, useSearchParams } from "react-router-dom";
+import { useLoaderData, useOutletContext, useSearchParams } from "react-router-dom";
 import { getAllRooms, searchRooms, useSearchResultRooms} from "../lib/apiCalls";
-import { Room, option } from "../types";
+import { Room, FormProps } from "../types";
 import { PriceSlider } from "../components/PriceSlider";
 import { Form } from "../components/Form";
 import RoomCard from "../components/RoomCard";
 import { useEffect, useState } from "react";
 import { castToFormOptions } from "../lib/utils";
 
-type formProps = {
-  cities: option[]
-  roomTypes: option[],
-  min: number,
-  max: number,
-}
-
-export const roomListLoader = async () => {
-  
-  
-  const rooms = await getAllRooms();
-  const {cities, roomTypes, min, max} = castToFormOptions(rooms);
- 
-  return {cities, roomTypes, min, max};
-
-}
-
 
 
 const  RoomList = () => {
 
   const [params, setParams] = useSearchParams();
-  const {cities, roomTypes, min, max} = useLoaderData() as formProps;
+  const props:FormProps = useOutletContext();
 
   const queryData: Record<string, any> = {};
 
@@ -64,14 +47,14 @@ const  RoomList = () => {
     <div className="flex flex-col sm:flex-row w-full">
       <aside className="sm:sticky sm:top-20 w-full sm:w-1/3 md:w-1/4  bg-blue-500 h-screen md:min-w-[254px]">
         <Form 
-          cities={cities} 
-          roomTypes={roomTypes} 
+          cities={props.cities} 
+          roomTypes={props.roomTypes} 
           formStyle="flex flex-col gap-5" 
           children={<PriceSlider 
-                      initialMin={min} 
-                      initialMax={max}
+                      initialMin={props.min} 
+                      initialMax={props.max}
                       min={0}
-                      max={max}
+                      max={props.max}
                       step={1}
                       priceCap={0}
                   />}/>
