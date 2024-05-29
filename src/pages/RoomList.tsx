@@ -1,11 +1,11 @@
-import { useLoaderData, useOutletContext, useSearchParams } from "react-router-dom";
-import { getAllRooms, searchRooms, useSearchResultRooms} from "../lib/apiCalls";
+import {  useOutletContext, useSearchParams } from "react-router-dom";
+import { searchRooms} from "../lib/apiCalls";
 import { Room, FormProps } from "../types";
 import { PriceSlider } from "../components/PriceSlider";
 import { Form } from "../components/Form";
 import RoomCard from "../components/RoomCard";
 import { useEffect, useState } from "react";
-import { castToFormOptions } from "../lib/utils";
+
 
 
 
