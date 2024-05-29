@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useLoaderData } from 'react-router-dom';
 import { getRoom } from '../lib/apiCalls';
-import { Room } from '../types';
+import { Room, User } from '../types';
 import Rating from '../components/Rating';
 import { FaHeart } from "react-icons/fa6";
+import { useAuth } from '../contexts/AuthContext';
 
 
 
@@ -25,9 +26,17 @@ export async function roomDetailsLoader({params}:any){
 function RoomDetails() {
 
     const room = useLoaderData() as Room;
-
+    const { user } = useAuth();
+    const [isFavorite, setIsFavorite] = useState((
+      user?.relationships.favorites.find(favorite => favorite.id == room.id) ? true : false
+    ))
     //Testing for rating TO BE DELETED
-    const defaultRating:number  = parseInt(localStorage.getItem("starRating") || '0');   
+    
+    console.log(isFavorite);
+    
+  
+    const defaultRating:number  = parseInt(localStorage.getItem("starRating") || '0'); 
+    //End of Testing  
     
   return (
     <>

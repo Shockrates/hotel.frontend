@@ -1,8 +1,8 @@
 import { createContext, useContext, useState } from "react";
-import { User } from "../types";
+import { IUserState, User } from "../types";
 import apiClient from "../lib/apiClient";
 
-const AuthContent = createContext({
+const AuthContent = createContext<IUserState>({
     user: null,
     setUserToLocalStorage: (_user: User) => {},
     csrfToken: () => {}
@@ -11,7 +11,7 @@ const AuthContent = createContext({
 
 export const AuthProvider = ( { children }: { children: React.ReactNode } ) => {
 
-    const [user, setUser] = useState(
+    const [user, setUser] = useState<User>(
         JSON.parse(localStorage.getItem('user') !) || null
     )
 

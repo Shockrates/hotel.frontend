@@ -1,4 +1,5 @@
-import { Room, SimpleFormValues, option } from "../types";
+import { useAuth } from "../contexts/AuthContext";
+import { Room, SimpleFormValues, User, option } from "../types";
 
 export const castToFormOptions = (rooms:Room[]) => {
 
@@ -41,4 +42,10 @@ export const formDataToQuery = (formData: SimpleFormValues) => {
         } 
     })
     .join('&');
+}
+
+export const isFavorite = (roomId:string):Boolean => {
+    const { user } = useAuth();
+    
+    return false
 }

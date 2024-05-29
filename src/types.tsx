@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react"
 
 export type User = {
     id: string,
@@ -8,6 +9,7 @@ export type User = {
     relationships: {
         reviews: Review[] | [],
         bookings: Booking[] | [],
+        favorites: Favorite[] | [],
     }
 
 }
@@ -71,6 +73,11 @@ export type Booking = {
     }
 }
 
+export type Favorite = {
+    id: string,
+    name:string
+}
+
 export type DateInfo = {
     name: string
     value: string
@@ -123,5 +130,11 @@ export type SelectProps = {
 export type option = {
     label: string,
     value: string
+}
+
+export interface IUserState {
+    user:User | null,
+    setUserToLocalStorage:(_user: User) => void,
+    csrfToken: () => void;
 }
 
