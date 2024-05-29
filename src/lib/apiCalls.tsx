@@ -111,11 +111,17 @@ export const useSearchResultRooms = (formData:Record<string, any>) =>{
 // Logout the user
 export const handleLogout = async () => {
   try {
-    const resp = await apiClient.post('/api/logout');
-    if (resp.status === 200) {
-      localStorage.removeItem('user');
-      window.location.href = '/';
-    }
+    
+    await apiClient.post('/api/logout')
+      .then(response => {
+          localStorage.removeItem('user');
+          window.location.href = '/';
+    })
+    .catch(err => console.log(err.response.data.message));
+    // if (resp.status === 200) {
+    //   localStorage.removeItem('user');
+    //   window.location.href = '/';
+    // }
   } catch (error) {
     console.log(error);
   }

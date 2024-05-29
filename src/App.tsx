@@ -22,7 +22,9 @@ const useLogToken = () => {
   useEffect(() => {
     (async () => {
       const csrf = await apiClient.get('/sanctum/csrf-cookie');
+      const user = await apiClient.get('/api/user');
       console.log('csrf = ', csrf);
+      console.log('user = ', user);
       
     })()
   }, []);
