@@ -9,7 +9,7 @@ export type User = {
     relationships: {
         reviews: Review[] | [],
         bookings: Booking[] | [],
-        favorites: Favorite[] | [],
+        favorites: Favorite[],
     }
 
 }
@@ -74,7 +74,7 @@ export type Booking = {
 }
 
 export type Favorite = {
-    id: string,
+    room_id: string,
     name:string
 }
 

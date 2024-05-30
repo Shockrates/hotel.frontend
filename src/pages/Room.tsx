@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useLoaderData } from 'react-router-dom';
 import { getRoom } from '../lib/apiCalls';
-import { Room } from '../types';
+import { Favorite, Room } from '../types';
 import Rating from '../components/Rating';
 import { FaHeart } from "react-icons/fa6";
 import { useAuth } from '../contexts/AuthContext';
@@ -27,24 +27,51 @@ export async function roomDetailsLoader({params}:any){
 function RoomDetails() {
 
     const room = useLoaderData() as Room;
-    const { user, csrfToken } = useAuth();
+    const { user, setUserToLocalStorage } = useAuth();
     
+    //If User  exists on Local Storage will AND room.id is found in Users Favorites isFavorite will be set to true else it will be faalse
     const [isFavorite, setIsFavorite] = useState((
-      user?.relationships.favorites.find(favorite => favorite.id == room.id) ? true : false
+      user?.relationships.favorites.find(favorite => favorite.room_id == room.id) ? true : false
     ))
+
+    //Sets collor depending if room is favorite to autherticated user 
     let favoriteColor = (isFavorite) ? "yellow" : "white"
-    //Testing for rating TO BE DELETED
-    
-    console.log(isFavorite);
+ 
     
   
-    const defaultRating:number  = parseInt(localStorage.getItem("starRating") || '0'); 
+  const defaultRating:number  = parseInt(localStorage.getItem("starRating") || '0'); 
 
    const handleFavorite = async () => {
       try {
-        await csrfToken();
-        await apiClient.post(`api/room/${room.id}/favorite`)
-        .catch(err => console.log(err.response.data.message));
+        //If no user return
+        if (!user)
+          return
+
+        if (!isFavorite) {
+          setIsFavorite(true);
+          await apiClient.post(`api/room/${room.id}/favorite`)
+          .then(response => {
+            user.relationships.favorites.push({'room_id': room.id!, 'name':room.attributes.name}); 
+            setUserToLocalStorage(user);
+          })
+          .catch(err => 
+            {
+              console.log(err.response.data.message);
+              setIsFavorite(!isFavorite);
+            });
+        } else {
+          setIsFavorite(false);
+          await apiClient.delete(`api/room/${room.id}/favorite`)
+          .then(response => {
+            user.relationships.favorites = user.relationships.favorites.filter(favorite => favorite.room_id !== room.id)
+            setUserToLocalStorage(user);
+          })
+          .catch(err => {
+            console.log(err.response.data.message);
+            setIsFavorite(!isFavorite);
+          });
+        }
+        
       } catch (error) {
         console.log(error);
       }
