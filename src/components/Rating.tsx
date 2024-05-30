@@ -1,5 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
+import { FaStar } from "react-icons/fa6";
+
 
 type ratingProps = {
    count?:number,
@@ -22,7 +24,7 @@ export default function Rating({count=5, defaultRating=0, icon="★", color="ora
       localStorage.setItem("starRating", `${rating}`)
     }
   return (
-    <div className='flex'>
+    <div className='flex flex-row items-center'>
         {stars.map((item, index) => {
 
           const isActiveColor = (rating || hoverRating) && ((index < rating && hoverRating==0)|| index < hoverRating);
@@ -40,24 +42,26 @@ export default function Rating({count=5, defaultRating=0, icon="★", color="ora
                   <div className="cursor-pointer transition duration-100 ease-linear hover:scale-125 text-6xl" 
                        
                       style={{color:elementColor}}
-                      onMouseEnter={() => setHoverRating(index+1)}
+                      onMouseOver={() => {setHoverRating(index+1)}}
                       onMouseOut={() => setHoverRating(0)}
                       onClick={() => handleClick(index+1)}
                     >
-                    {icon}
+                   {/* <FaStar /> */}
+                   <p><FaStar /></p>
+                    
                 </div>
                 ) : (
                   <div className="text-3xl" 
             
                       style={{color:elementColor}}
                     >
-                    {icon}
+                    <FaStar />
                 </div>
                 )
               }
                 
               </div>
-                
+              
             )
         })}
     </div>

@@ -41,40 +41,42 @@ function RoomDetails() {
   
   const defaultRating:number  = parseInt(localStorage.getItem("starRating") || '0'); 
 
-   const handleFavorite = async () => {
-      try {
-        //If no user return
-        if (!user)
-          return
+  const handleFavorite = async () => {
+    try {
+      //If no user return
+      if (!user)
+        return
 
-        if (!isFavorite) {
-          setIsFavorite(true);
-          await apiClient.post(`api/room/${room.id}/favorite`)
-          .then(response => {
-            user.relationships.favorites.push({'room_id': room.id!, 'name':room.attributes.name}); 
-            setUserToLocalStorage(user);
-          })
-          .catch(err => 
-            {
-              console.log(err.response.data.message);
-              setIsFavorite(!isFavorite);
-            });
-        } else {
-          setIsFavorite(false);
-          await apiClient.delete(`api/room/${room.id}/favorite`)
-          .then(response => {
-            user.relationships.favorites = user.relationships.favorites.filter(favorite => favorite.room_id !== room.id)
-            setUserToLocalStorage(user);
-          })
-          .catch(err => {
+      if (!isFavorite) {
+        setIsFavorite(true);
+        await apiClient.post(`api/room/${room.id}/favorite`)
+        .then(response => {
+          user.relationships.favorites.push({'room_id': room.id!, 'name':room.attributes.name}); 
+          setUserToLocalStorage(user);
+        })
+        .catch(err => 
+          {
             console.log(err.response.data.message);
-            setIsFavorite(!isFavorite);
+            
           });
-        }
-        
-      } catch (error) {
-        console.log(error);
+      } else {
+        setIsFavorite(false);
+        await apiClient.delete(`api/room/${room.id}/favorite`)
+        .then(response => {
+          user.relationships.favorites = user.relationships.favorites.filter(favorite => favorite.room_id !== room.id)
+          setUserToLocalStorage(user);
+          console.log(user);
+          
+        })
+        .catch(err => {
+          console.log(err.response.data.message);
+          
+        });
       }
+      
+    } catch (error) {
+      console.log(error);
+    }
     };
 
  
@@ -84,9 +86,17 @@ function RoomDetails() {
   return (
     <>
       <div className="flex flex-col w-full">
-        <div className="flex flex-row w-full items-center bg-orange-500 rounded mb-4 px-2 py-1 text-left font-semibold text-white">
-          {room.attributes.name} - {room.attributes.city}, {room.attributes.area} | <Rating defaultRating={room.attributes.avg_reviews} editable={false} /> | <FaHeart size={24} color={favoriteColor} onClick={handleFavorite}/>
+        <div className="flex flex-row w-full justify-between bg-gradient-to-b from-orange-600 to-orange-500 rounded mb-4 px-2 py-2 text-left font-semibold text-2xl text-white ">
+          <div className='flex flex-row items-center'>
+            {room.attributes.name} - {room.attributes.city}, {room.attributes.area} | <Rating defaultRating={room.attributes.avg_reviews} editable={false} /> | {user && (<FaHeart size={26} color={favoriteColor} onClick={handleFavorite}/>)}
+          </div>
+          <div className="">
+            Per Night: {room.attributes.price}
+          </div>
         </div> 
+        <div className="block h-5 w-full">
+          <img src={`assets/images/rooms/${room.attributes.photo_url}`} alt={`${room.attributes.photo_url}`} height="auto"/>
+        </div>
         <div className="">
         <Rating defaultRating={defaultRating} editable={true} /*count={3}*//>
         </div>
