@@ -17,7 +17,7 @@ const RoomCard = ({room}:roomCardProps) => {
       <div className="flex flex-col">
         <div className="flex flex-col sm:flex-row">
           <div className="block h-auto sm:w-1/4 w-full">
-            <img src={`assets/images/rooms/${room.attributes.photo_url}`} alt={`${room.attributes.photo_url}`} height="auto"/>
+            <img src={`/assets/images/rooms/${room.attributes.photo_url}`} alt={`${room.attributes.photo_url}`} height="auto"/>
           </div>
           <div className="relative w-full sm:w-3/4 sm:ml-4 sm:pl-6 box-border sm:border-l-4 sm:border-orange-500 text-left">
             <h1 className='text-4xl font-bold'>{room.attributes.name}</h1>

@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { useLoaderData } from 'react-router-dom';
 import { getRoom } from '../lib/apiCalls';
-import { Favorite, Room } from '../types';
+import { Favorite, Review, Room } from '../types';
 import Rating from '../components/Rating';
 import { FaHeart } from "react-icons/fa6";
 import { useAuth } from '../contexts/AuthContext';
 import apiClient from '../lib/apiClient';
+import MapComponent from '../components/MapComponent';
+import ReviewComponent from '../components/ReviewComponent';
 
 
 
@@ -27,6 +29,7 @@ export async function roomDetailsLoader({params}:any){
 function RoomDetails() {
 
     const room = useLoaderData() as Room;
+    const reviews:Review[]= room.relationships.reviews
     const { user, setUserToLocalStorage } = useAuth();
     
     //If User  exists on Local Storage will AND room.id is found in Users Favorites isFavorite will be set to true else it will be faalse
@@ -81,7 +84,6 @@ function RoomDetails() {
 
  
 
-    //End of Testing  
     
   return (
     <>
@@ -94,11 +96,54 @@ function RoomDetails() {
             Per Night: {room.attributes.price}
           </div>
         </div> 
-        <div className="block h-5 w-full">
-          <img src={`assets/images/rooms/${room.attributes.photo_url}`} alt={`${room.attributes.photo_url}`} height="auto"/>
+        <div className="block h-auto w-full mb-4">
+          <img src={`/assets/images/rooms/${room.attributes.photo_url}`} alt={`${room.attributes.photo_url}`} height="auto"/>
         </div>
-        <div className="">
-        <Rating defaultRating={defaultRating} editable={true} /*count={3}*//>
+        <div className="grid grid-cols-5 w-full justify-between bg-gradient-to-b from-orange-600 to-orange-500 rounded mb-4 px-2 py-2 text-left font-semibold text-xl text-white divide-x-2 divide-dashed">
+          <div className="flex flex-col items-center">
+            {room.attributes.count_of_guests}
+            <span>COUNT OF GUESTS</span>
+          </div>
+          <div className="flex flex-col items-center">
+            {room.attributes.type}
+            <span>TYPE OF ROOM</span>
+          </div>
+          <div className="flex flex-col items-center">
+            {room.attributes.parking? "YES" : "NO"}
+            <span>PARKING</span>
+          </div>
+          <div className="flex flex-col items-center">
+            {room.attributes.wifi? "YES" : "NO"}
+            <span>WIFI</span>
+          </div>
+          <div className="flex flex-col items-center">
+            {room.attributes.pet_friendly? "YES" : "NO"}
+            <span>PET FRIENDLY</span>
+          </div>
+        </div>
+        <div className="flex fex-col text-left mb-4">
+          <div className="px-4 border-l-8 border-orange-500">
+            <h1 className='mb-1 text-xl font-bold'>Room Description</h1>
+            <p>{room.attributes.description_long}</p>
+          </div>
+        </div>
+        <MapComponent lat={room.attributes.location_lat} lon={room.attributes.location_long} />
+         
+        <div className="mb-4">
+          <Rating defaultRating={defaultRating} editable={true} /*count={3}*//>
+        </div>
+        <div className="flex fex-col text-left mb-4">
+          <div className="px-4 border-l-8 border-orange-500">
+          <h1 className='mb-1 text-xl font-bold'>Reviews</h1>
+            {
+              reviews && reviews.length>0  
+              ?reviews.map((review, index) =>
+                <ReviewComponent key={index} review={review} index={index}/>
+                
+              )
+              :<p>No rooms Available</p>
+            }
+          </div>
         </div>
        
     </div>

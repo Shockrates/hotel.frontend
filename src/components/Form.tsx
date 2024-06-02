@@ -57,9 +57,9 @@ export const Form = ({cities, roomTypes, formStyle, children, action}: any) => {
                                 placeholder="City"
                                 defaultValue={searchParams.get('city')}
                                 values={cities}
-                                rules = {
-                                    { required: 'City is Required' }
-                                }
+                                // rules = {
+                                //     { required: 'City is Required' }
+                                // }
                             />
                             <SelectInput
                                  name="type_id"

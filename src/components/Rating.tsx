@@ -51,7 +51,7 @@ export default function Rating({count=5, defaultRating=0, icon="★", color="ora
                     
                 </div>
                 ) : (
-                  <div className="text-3xl" 
+                  <div className="text-2xl" 
             
                       style={{color:elementColor}}
                     >

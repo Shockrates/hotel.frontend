@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import apiClient from "./apiClient";
-import { Room, RoomType} from "../types";
+import { Review, Room, RoomType} from "../types";
 
 
 export const getAllRooms = async () => {
@@ -148,4 +148,22 @@ export const searchRooms = async (formData:Record<string, any>) =>{
   return {
     rooms, error
   }
+}
+
+export const getRoomReviews = async (id:string) => {
+
+  //let room:Room = null
+
+  try {
+    let review:Review = await apiClient.get(`/api/rooms/${id}/reviews`)
+      .then(response => {
+          return response.data.data ;   
+      })
+      .catch(error => console.error(error));
+      return review
+  } catch (error) {
+    console.log(error);
+  } 
+
+  
 }

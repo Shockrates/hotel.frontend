@@ -33,7 +33,7 @@ export type Room = {
         location_lat: number,
         location_long: number,
         description_short: string,
-        description_long: Text,
+        description_long: string,
         parking: boolean,
         wifi: boolean,
         pet_friendly: boolean,
@@ -58,7 +58,8 @@ export type Review = {
         user_id:string,
         room_id:string,
         rate: number,
-        comment:Text,
+        comment:string,
+        created_at:Date
     }
 }
 
