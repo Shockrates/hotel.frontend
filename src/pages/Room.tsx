@@ -129,9 +129,7 @@ function RoomDetails() {
         </div>
         <MapComponent lat={room.attributes.location_lat} lon={room.attributes.location_long} />
          
-        <div className="mb-4">
-          <Rating defaultRating={defaultRating} editable={true} /*count={3}*//>
-        </div>
+        
         <div className="flex fex-col text-left mb-4">
           <div className="px-4 border-l-8 border-orange-500">
           <h1 className='mb-1 text-xl font-bold'>Reviews</h1>
@@ -143,6 +141,18 @@ function RoomDetails() {
               )
               :<p>No rooms Available</p>
             }
+          </div>
+        </div>
+
+        <div className="flex fex-col text-left mb-4">
+          <div className="px-4 border-l-8 border-orange-500">
+            <h1 className='mb-1 text-xl font-bold'>Add Review</h1>
+            <div className="mb-4">
+              <Rating defaultRating={defaultRating} editable={true} /*count={3}*//>
+          </div>
+          <form action="" method="post">
+            <textarea name="review" id=""></textarea>
+          </form>
           </div>
         </div>
        

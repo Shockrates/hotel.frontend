@@ -11,13 +11,16 @@ function ReviewComponent({review, index}:ReviewProps) {
 
   
   return (
-    <div>
+    <div className='mb-4'>
       <div className="flex flex-row">
         {index+1}. {review.attributes.user_id} <Rating defaultRating={review.attributes.rate} editable={false} />
       </div>
-      <div className="">
+      <div className="text-sm opacity-50">
         Add time: {new Date(review.attributes.created_at).toLocaleDateString()}
       </div>
+      <p>
+        {review.attributes.comment}
+      </p>
       
     </div>
   )
