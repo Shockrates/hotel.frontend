@@ -8,10 +8,15 @@ import { Link } from 'react-router-dom'
 type roomCardProps = {
    
   room:Room
-  booking?:Booking
+  dates?: {
+    check_in_date:Date
+    check_out_date:Date
+  }
+  
 }
 
-const RoomCard = ({room}:roomCardProps) => {
+const RoomCard = ({room, dates}:roomCardProps) => {
+  const query=(dates)?`?check_in_date=${dates.check_in_date}&check_out_date=${dates.check_out_date}` : ``;
   return (
     <article className='my-4 pb-2 border-b border-gray-400'>
       <div className="flex flex-col">
@@ -28,7 +33,7 @@ const RoomCard = ({room}:roomCardProps) => {
               {/* <button className='flex bg-orange-500 items-center justify-center text-white text-base h-7 rounded-md px-1 py-5 my-1'>
                 <span>Go to room Page</span>
               </button> */}
-            <Link to={`/room/${room.id}`}>
+            <Link to={`/room/${room.id}/${query}`}>
               <button className='flex bg-orange-500 items-center justify-center text-white text-base h-7 rounded-md px-1 py-5 my-1'>
                 Go to room Page
               </button>

@@ -23,6 +23,11 @@ const  RoomList = () => {
     queryData[key] = value;
   });
 
+  const dates={
+    check_in_date: queryData['check_in_date'],
+    check_out_date: queryData['check_out_date']
+  }
+  
   useEffect(() => {
     // declare the async data fetching function
     const fetchData = async () => {
@@ -68,7 +73,7 @@ const  RoomList = () => {
                 rooms && rooms.length>0  
                 ?rooms.map((room) =>
                   // <li key={room.id}> {room.attributes.name}</li>
-                  <RoomCard key={room.id} room={room} />
+                  <RoomCard key={room.id} room={room} dates={dates} />
                 )
                 :<p>No rooms Available</p>
               }

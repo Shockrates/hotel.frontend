@@ -132,7 +132,7 @@ function RoomDetails() {
         
         <div className="flex fex-col text-left mb-4">
           <div className="px-4 border-l-8 border-orange-500">
-          <h1 className='mb-1 text-xl font-bold'>Reviews</h1>
+          <h1 className='mb-4 text-xl font-bold'>Reviews</h1>
             {
               reviews && reviews.length>0  
               ?reviews.map((review, index) =>
