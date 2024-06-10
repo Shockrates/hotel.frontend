@@ -32,7 +32,7 @@ export const Form = ({cities, roomTypes, formStyle, children, action}: any) => {
 
         const queryString = formDataToQuery(formData);
      
-        console.log(queryString);
+        //console.log(formData.check_in_date.toLocaleDateString());
         
         navigate(`/rooms?${queryString}`); 
     })

@@ -167,3 +167,27 @@ export const getRoomReviews = async (id:string) => {
 
   
 }
+
+export const isBooked = async (id:string, formData:Record<string, any>) =>{
+
+
+  let isFree:Boolean
+  let error;
+
+
+  try {
+    await apiClient.post(`/api/room/${id}/booked`, formData)
+    .then(response => {
+      console.log(response.data["is free?"]);
+      
+        //rooms = response.data.data ;      
+    })
+    .catch(err => error = err.response.data.message);
+  } catch (error) {
+    console.log(error);
+  } 
+    
+  return {
+     error
+  }
+}

@@ -8,8 +8,6 @@ type coordinates = {
 
 function MapComponent({lat, lon}: coordinates) {
     const pos = {lat:lat, lng:lon}
-  console.log(pos);
-  
     
   return (
     <APIProvider apiKey={import.meta.env.VITE_GOOGLE_MAPS_API_KEY}>

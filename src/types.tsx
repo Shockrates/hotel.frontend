@@ -20,7 +20,7 @@ export type RoomType = {
 }
 
 export type Room = {
-    id? : string,
+    id : string,
     attributes: {
         name:string,
         type: string,
@@ -45,7 +45,8 @@ export type Room = {
     relationships: {
         roomType: RoomType
         reviews: Review[] | [],
-        favorite_total: number
+        favorite_total: number,
+        bookings: Booking[] | [],
  
     }
    

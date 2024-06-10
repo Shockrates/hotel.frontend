@@ -27,6 +27,7 @@ const  RoomList = () => {
     check_in_date: queryData['check_in_date'],
     check_out_date: queryData['check_out_date']
   }
+ 
   
   useEffect(() => {
     // declare the async data fetching function

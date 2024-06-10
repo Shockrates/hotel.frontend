@@ -1,5 +1,5 @@
 import { useAuth } from "../contexts/AuthContext";
-import { Room, SimpleFormValues, User, option } from "../types";
+import { Booking, Room, SimpleFormValues, User, option } from "../types";
 
 export const castToFormOptions = (rooms:Room[]) => {
 
@@ -38,10 +38,10 @@ export const castToFormOptions = (rooms:Room[]) => {
 export const formDataToQuery = (formData: SimpleFormValues) => {
     return Object.entries(formData).map(([key, value]) => {
         if ( value) {
-            return `${key}=${(value instanceof Date)? value.toDateString() : value.toString()}` 
+            return `${key}=${(value instanceof Date)? value.toLocaleDateString() : value.toString()}&` 
         } 
     })
-    .join('&');
+    .join('');
 }
 
 export const isFavorite = (roomId:string):Boolean => {
@@ -49,3 +49,4 @@ export const isFavorite = (roomId:string):Boolean => {
     
     return false
 }
+

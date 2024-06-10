@@ -1,13 +1,14 @@
-import { useState } from 'react'
-import { useLoaderData } from 'react-router-dom';
-import { getRoom } from '../lib/apiCalls';
-import { Favorite, Review, Room } from '../types';
+import { useEffect, useState } from 'react'
+import { useLoaderData, useSearchParams } from 'react-router-dom';
+import { getRoom, isBooked } from '../lib/apiCalls';
+import { Booking, Favorite, Review, Room } from '../types';
 import Rating from '../components/Rating';
 import { FaHeart } from "react-icons/fa6";
 import { useAuth } from '../contexts/AuthContext';
 import apiClient from '../lib/apiClient';
 import MapComponent from '../components/MapComponent';
 import ReviewComponent from '../components/ReviewComponent';
+
 
 
 
@@ -29,7 +30,9 @@ export async function roomDetailsLoader({params}:any){
 function RoomDetails() {
 
     const room = useLoaderData() as Room;
-    const reviews:Review[]= room.relationships.reviews
+    const [params, setParams] = useSearchParams();
+    const reviews:Review[]= room.relationships.reviews;
+    const bookings:Booking[] = room.relationships.bookings;
     const { user, setUserToLocalStorage } = useAuth();
     
     //If User  exists on Local Storage will AND room.id is found in Users Favorites isFavorite will be set to true else it will be faalse
@@ -39,7 +42,7 @@ function RoomDetails() {
 
     //Sets collor depending if room is favorite to autherticated user 
     let favoriteColor = (isFavorite) ? "yellow" : "white"
- 
+    
     
   
   const defaultRating:number  = parseInt(localStorage.getItem("starRating") || '0'); 
@@ -68,7 +71,6 @@ function RoomDetails() {
         .then(response => {
           user.relationships.favorites = user.relationships.favorites.filter(favorite => favorite.room_id !== room.id)
           setUserToLocalStorage(user);
-          console.log(user);
           
         })
         .catch(err => {
@@ -82,7 +84,18 @@ function RoomDetails() {
     }
     };
 
- 
+    useEffect(() => {
+      // declare the async data fetching function
+      const fetchData = async () => {
+        // get the data from the api
+        const { error } = await isBooked(room.id, {"room_id":room.id, "check_in_date":params.get('check_in_date'),"check_out_date":params.get('check_out_date')});
+
+      }
+      // call the function
+      fetchData()
+        // make sure to catch any error
+        .catch(console.error);
+    }, [params])
 
     
   return (
@@ -121,13 +134,18 @@ function RoomDetails() {
             <span>PET FRIENDLY</span>
           </div>
         </div>
+
         <div className="flex fex-col text-left mb-4">
           <div className="px-4 border-l-8 border-orange-500">
             <h1 className='mb-1 text-xl font-bold'>Room Description</h1>
             <p>{room.attributes.description_long}</p>
           </div>
         </div>
+
+        <div className="my-6">
         <MapComponent lat={room.attributes.location_lat} lon={room.attributes.location_long} />
+        </div>
+        
          
         
         <div className="flex fex-col text-left mb-4">
